@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echelon Media | Responsive</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+<link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body class="bg-white">
+
+    <div id="loading-screen">
+        <div class="loader-content text-center">
+            <h1>Echelon Media</h1>
+            <div class="loading-dots">
+                <div class="dot1"></div>
+                <div class="dot2"></div>
+                <div class="dot3"></div>
+            </div>
+            <p>Loading Experience</p>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md fixed-top py-4 px-3 px-lg-4">
+        <div class="container-fluid max-w-7xl mx-auto d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/echelon logo trans.png" alt="Echelon Media Logo" style="height: 40px;"
+                    onerror="this.onerror=null;this.src='https://placehold.co/150x40/000000/E0E0E0?text=ECHELON';">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#what-we-do-section">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#video-editing-section">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact-section">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div id="intro-video-container">
+            <video id="intro-video" muted playsinline>
+                <source src="assets/video/herovdo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div id="hero-content-container">
+            <div class="container-fluid max-w-7xl mx-auto px-3 px-lg-4">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-7"></div>
+                    <div class="col-12 col-lg-5">
+                        <div class="hero-text">
+                            <h1 class="hero-main-heading">Echelon <br> Media</h1>
+                            <div class="animated-text-container">
+                                <span class="static-text">We</span>
+                                <span class="glitch-text" id="changing-word" data-text="Create">Create</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section id="what-we-do-section"
+            class="bg-black text-white position-relative z-10 radius-section ">
+            <div class="container-xl px-3 px-lg-4">
+                <div class="text-center max-w-3xl mx-auto position-relative z-30"
+                    style="padding-top: 5rem; padding-top: 8rem;">
+
+                    <h2 class="font-display text-6xl md-text-8xl lg-text-9xl reveal-anim from-top section-heading-massive">
+                        WHAT WE DO
+                    </h2>
+
+                    <p class="font-body fs-5 md-fs-4 max-w-2xl mx-auto mt-5 lh-base reveal-anim from-bottom"
+                        style="font-family: 'Inter', sans-serif; font-weight: 400">
+                        At Echelon Media, we don’t just create content — we create presence.
+We’re a new-age creative agency that brings storytelling, design, and technology together to make brands look, sound, and feel unforgettable.
+From cinematic edits and scroll-stopping designs to clean, high-performing websites — we make sure your digital vibe matches your vision. <br>
+🎬 Video. 🎨 Design. 💻 Web.
+We build what makes people stop scrolling.
+                    </p>
+                </div>
+<br>
+                <div class="card-container w-100 max-w-5xl mx-auto">
+                    <div id="card-1" class="card-item radius-large reveal-on-scroll">
+                        <img src="assets/img/ad company logo.png" alt="Card Image 1"
+                            onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+1';">
+                    </div>
+                    <div id="card-2" class="card-item radius-large reveal-on-scroll">
+                        <img src="assets/img/illustrative.png" alt="Card Image 2"
+                            onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+2';">
+                    </div>
+                    <div id="card-3" class="card-item radius-large reveal-on-scroll">
+                        <img src="assets/img/media agency logo.png" alt="Card Image 3"
+                            onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+3';">
+                    </div>
+                    <div id="card-4" class="card-item radius-large reveal-on-scroll">
+                        <img src="assets/img/posters final 4-02.png" alt="Card Image 4"
+                            onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+4';">
+                    </div>
+                    <div id="card-5" class="card-item radius-large reveal-on-scroll">
+                        <img src="assets/img/soc media creative.png" alt="Card Image 5"
+                            onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+5';">
+                    </div>
+                </div>
+
+                <div class="text-center reveal-anim from-top" style="margin-top: 8rem;">
+                    <h3 class="font-display text-5xl md-text-7xl lg-text-8xl">
+                        WE AMPLIFY<br>YOUR SOCIALS.
+                    </h3>
+
+                    <p class="font-body text-xl md-text-2xl tracking-widest-lg text-uppercase text-secondary mt-5"
+                        style="font-family: 'Inter', sans-serif; font-weight: 400;">
+                        PROVIDING
+                    </p>
+                </div>
+        </section>
+
+        <section id="video-editing-section" class="bg-white pb-5 radius-section position-relative"
+            style="padding-bottom: 8rem;">
+            <div class="container-xl px-3 px-lg-5">
+                <br><br><br>
+                <br><br>
+                <div class="text-center mb-9 rud">
+                    <h2 class="section-heading-giga slide-down" style=" color: #000;">
+                        VIDEO EDITING
+                    </h2>
+                </div>
+
+                <div class="row g-4 g-md-5 reveal-anim from-bottom video-grid-overlap">
+                    <div class="col-12 col-sm-6 col-lg-3 video-card-col">
+                        <div class="h-500 bg-secondary-subtle radius-large lg-translate-y-12 video-card"
+                            style="height: 500px;box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.5);">
+                            <video autoplay loop muted playsinline>
+                                <source src="assets/video/Copy of wdh 10 b v5.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3 video-card-col">
+                        <div class="h-500 bg-secondary-subtle radius-large video-card"
+                            style="height: 500px; box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.5);">
+                            <video autoplay loop muted playsinline>
+                                <source src="assets/video/ech reel 2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3 video-card-col">
+                        <div class="h-500 bg-secondary-subtle radius-large video-card"
+                            style="height: 500px; box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.5);">
+                            <video autoplay loop muted playsinline>
+                                <source src="assets/video/wdh 4.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3 video-card-col">
+                        <div class="h-500 bg-secondary-subtle radius-large lg-translate-y-12 video-card"
+                            style="height: 500px;box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.5);">
+                            <video autoplay loop muted playsinline>
+                                <source src="assets/video/podcast highlight.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br>
+
+                <div class="d-flex justify-content-end mt-5">
+                    <p class="font-body fs-5 md-fs-4 max-w-3xl text-end lh-base text-secondary-emphasis reveal-anim from-right"
+                        style="font-family: 'Inter', sans-serif; font-weight: 400;">
+                        
+We craft stories that feel good to watch.
+Our editing style blends cinematic pacing, bold transitions, crisp sound design, and color that speaks emotion. Whether it’s for YouTube, music videos, brand films, or social media — every frame we cut, every sound we sync, is built to move your audience.<br>
+<b>🎥 Specialties:</b> Cinematic Pacing | SFX | Color Grading | Transitions | Motion Graphics <br>
+“We don’t edit videos — we design experiences.”
+
+                        <br>
+<a href="content.html" class="explore-btn">
+    Explore More Works
+    <span>→</span>
+</a>
+
+                    </p>
+                    
+                </div>
+            </div>
+        </section>
+<br>
+        <section id="graphic-design-section" class="bg-black text-white py-5 radius-section"
+            style="padding-top: 8rem; padding-bottom: 8rem;">
+            <div class="container-xl px-3 px-lg-4">
+                <div class="row g-5 align-items-center">
+<div class="col-12 col-lg-6">
+    <h2 class="font-display graphic-design-heading slide-down">
+        GRAP<br>HIC<br>DESIGN<br>ING.
+    </h2>
+</div>
+
+
+                    <div class="col-12 col-lg-6 reveal-anim from-right mt-lg-5">
+                        <div class="row g-4">
+                            <div class="col-6">
+                                <div class="radius-large" style="height: 24rem; overflow: hidden; background-color: #333;">
+                                    <img src="assets/img/posters final 4-02.png"
+                                        alt="Graphic Design Image 1"
+                                        class="img-fluid"
+                                        style="width: 100%; height: 100%; object-fit: cover;"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#imageModal"
+                                        data-img-src="assets/img/posters final 4-02.png"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/400x600/333/FFF?text=Image';">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <div class="radius-large"
+                                            style="height: 11rem; overflow: hidden; background-color: #333;">
+                                            <img src="assets/img/soc media creative.png"
+                                                alt="Graphic Design Image 2"
+                                                class="img-fluid"
+                                                style="width: 100%; height: 100%; object-fit: cover;"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#imageModal"
+                                                data-img-src="assets/img/soc media creative.png"
+                                                onerror="this.onerror=null;this.src='https://placehold.co/400x300/333/FFF?text=Image';">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="radius-large"
+                                            style="height: 11rem; overflow: hidden; background-color: #333;">
+                                            <img src="assets/img/media agency logo.png"
+                                                alt="Graphic Design Image 3"
+                                                class="img-fluid"
+                                                style="width: 100%; height: 100%; object-fit: cover;"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#imageModal"
+                                                data-img-src="assets/img/media agency logo.png"
+                                                onerror="this.onerror=null;this.src='https://placehold.co/400x300/333/FFF?text=Image';">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-start mt-5">
+                    <p class="font-body fs-5 md-fs-4 max-w-3xl text-start lh-base text-light-emphasis reveal-anim from-left"
+                        style="font-family: 'Inter', sans-serif; font-weight: 400;">
+                        Design that doesn’t just look good — it talks.
+From minimal logos to vibrant illustrations, striking song covers to aesthetic social media grids — we create visuals that align with your brand’s personality and make your audience feel something. <br>
+🎨 Services:
+Logos • Branding • Social Media Creatives • Illustrations • T-shirt Designs • Song Covers
+We make pixels tell stories.
+
+                        <br>
+<a href="content.html#graphics-section" class="explore-btn">
+    Explore More Works
+    <span>→</span>
+</a>
+
+                  <br><br><br>  </p>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section id="web-development-section" class="bg-white py-5" style="padding-top: 8rem; padding-bottom: 8rem;">
+            <div class="container-xl px-3 px-lg-4">
+                <div class="text-center mb-5">
+                   <h2 class="web-dev-heading slide-down">
+    WEB DEVELOPMENT
+</h2>
+
+                </div>
+                <div class="row g-4 g-md-5 reveal-anim zoom-in">
+                    <div class="col-12 col-md-6">
+                        <div class="radius-large" style="height: 20rem; overflow: hidden;">
+                            <img src="assets/img/Screenshot (52).png"
+                                alt="Web Development Project 1"
+                                style="width: 100%; height: 100%; object-fit: cover;"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Web+Project+1';">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="radius-large" style="height: 20rem; overflow: hidden;">
+                            <img src="assets/img/findyourspace.png"
+                                alt="Web Development Project 2"
+                                style="width: 100%; height: 100%; object-fit: cover;"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Web+Project+2';">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <p class="font-body fs-5 md-fs-4 max-w-3xl text-center lh-base text-secondary-emphasis reveal-anim from-bottom"
+                        style="font-family: 'Inter', sans-serif; font-weight: 400;">
+                        Because your first impression often starts with a click.
+Our web team builds sleek, responsive, and powerful websites that don’t just look beautiful — they perform. From portfolio sites to business platforms, we make sure your brand feels premium across every screen.
+                        <br>
+
+<a href="content.html#web-section" class="explore-btn">
+    Explore More Works
+    <span>→</span>
+</a>
+
+</p>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="brands-that-trusted-us" class="bg-body-tertiary py-5 radius-section"
+            style="padding-top: 8rem; padding-bottom: 8rem;">
+            <div class="container-xl px-3 px-lg-4 text-center">
+                <h2 class="font-display text-5xl md-text-7xl reveal-anim from-top"
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                    BRANDS THAT<br>TRUSTED US
+                </h2>
+
+                <div
+                    class="d-flex flex-wrap justify-content-center align-items-center gap-3 gap-md-4 mt-5 reveal-anim zoom-in">
+                    <div class="brand-logo-wrapper">
+                        <img src="assets/img/brands/decoy logos.png" alt="Brand Logo 1"
+                            onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+1';">
+                    </div>
+                    <div class="brand-logo-wrapper">
+                        <img src="assets/img/brands/Digital Hub x orbit Logo_Artboard 1.png" alt="Brand Logo 2"
+                            onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+2';">
+                    </div>
+                    <div class="brand-logo-wrapper" >
+                        <img src="assets/img/brands/final logo mm.png" alt="Brand Logo 3" 
+                            onerror="this.onerror=null;this.src='https::/placehold.co/150x150/f8f9fa/ccc?text=LOGO+3';">
+                    </div>
+                    <div class="brand-logo-wrapper">
+                        <img src="assets/img/brands/Logo stylized version vf.png" alt="Brand Logo 4" 
+                            onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+4';">
+                    </div>
+                    <div class="brand-logo-wrapper">
+                        <img src="assets/img/brands/Tca logo t-02.png" alt="Brand Logo 5" 
+                            onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+5';">
+                    </div>
+                    <div class="brand-logo-wrapper">
+                        <img src="assets/img/brands/Wrdmrk with sbtxt-10.png" alt="Brand Logo 5"
+                            onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+5';">
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+
+        <section id="team-section" class="bg-black text-white py-5 radius-section mt-n5 position-relative z-0"
+            style="padding-top: 8rem; padding-bottom: 15rem; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
+
+            <div class="container-xl px-3 px-lg-4">
+
+                <div class="row mb-4 mb-md-5 align-items-end">
+
+                    <div class="col-lg-4 reveal-anim from-left">
+                        <p class="font-display text-5xl md-text-7xl">THE</p>
+                        <h2 class="font-display text-9xl md-text-9xl lg-text-200px xl-text-250px" style="letter-spacing: 1px;">
+                            CREW
+                        </h2>
+                    </div>
+
+                    <div class="col-lg-6 reveal-anim from-right ms-auto">
+                        <div class="team-card-large" style="height: 90%;">
+                            <img src="assets/img/teamm.jpg" alt="Team Lead" class="team-card-img-large"
+                                onerror="this.onerror=null;this.src='https://placehold.co/800x200/333/FFF?text=Team+Lead';">
+                        </div>
+                    </div>
+
+                </div> <div class="row">
+                    <div class="col-12 reveal-anim from-bottom">
+                        <div class="team-card-container">
+
+                            <div class="team-card-small">
+                                <div class="team-card-img-wrapper">
+                                    <img src="assets/img/peaby.jpg" alt="Team Member Peaby" class="team-card-img-small"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Peaby';">
+                                </div>
+                                <div class="team-card-info-static">
+                                    <h3>Peaby</h3>
+                                    <p>Chief Editor & visual designer <br>Chief Executive Officer (CEO)</p>
+                                </div>
+                                <div class="team-card-info-hover">
+                                    <div> <div class="info-left">
+                                            <h3>Peaby</h3>
+                                            <p>Chief Editor & visual designer</p>
+                                             <p>Chief Executive Officer (CEO)</p>
+                                        </div>
+                                        <div class="info-right">
+                                            <p>
+A storyteller, brings a sense of rhythm and emotion to every frame, blending visuals and sound into seamless cinematic stories.</p>
+                                        </div>
+                                    </div>
+                                    <div> <div class="team-social-icons">
+                                            <a href="#" aria-label="LinkedIn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                                </svg>
+                                            </a>
+                                            <a href="#" aria-label="X (Twitter)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.454l8.6-9.83L0 1.154h7.594l5.243 6.931L18.901 1.153zm-2.3 19.165h3.359L5.42 2.13h-3.15l14.331 18.188z" />
+                                                </svg>
+                                            </a>
+                                            <a href="#" aria-label="Portfolio">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" fill="none">
+                                                    <path
+                                                        d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72">
+                                                    </path>
+                                                    <path
+                                                        d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="team-card-small">
+                                <div class="team-card-img-wrapper">
+                                    <img src="assets/img/rudra.jpg" alt="Team Member Rudrangshu" class="team-card-img-small"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Rudrangshu';">
+                                </div>
+                                <div class="team-card-info-static">
+                                    <h3>Rudrangshu</h3>
+                                    <p>Motion graphics artist<br>Chief Operating Officer (COO)</p>
+                                </div>
+                                <div class="team-card-info-hover">
+                                    <div>
+                                        <div class="info-left">
+                                            <h3>Rudrandshu </h3>
+                                            <p>Motion graphics artist</p>
+                                        </div>
+                                        <div class="info-right">
+                                            <p>
+Designs that move, literally. Brings shape, color, and rhythm together to build visual identity.</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="team-social-icons">
+                                            <a href="#" aria-label="LinkedIn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                                </svg>
+                                            </a>
+                                            <a href="#" aria-label="X (Twitter)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.454l8.6-9.83L0 1.154h7.594l5.243 6.931L18.901 1.153zm-2.3 19.165h3.359L5.42 2.13h-3.15l14.331 18.188z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="team-card-small">
+                                <div class="team-card-img-wrapper">
+                                    <img src="assets/img/AKE.jpg" alt="Team Member Jane" class="team-card-img-small"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Jane';">
+                                </div>
+                                <div class="team-card-info-static">
+                                    <h3>Aryan</h3>
+                                    <p>Senior Web Developer <br>Chief Technology Officer (CTO)
+                                    </p>
+                                </div>
+                                <div class="team-card-info-hover">
+                                    <div>
+                                        <div class="info-left">
+                                            <h3>Aryan</h3>
+                                            <p>Senior Web Developer</p>
+                                            <p>Chief Technology Officer (CTO)</p>
+                                        </div>
+                                        <div class="info-right">
+                                            <p> The tech brain. Turns visuals and ideas into smooth, functional, and fast digital experiences.</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="team-social-icons">
+                                            <a href="#" aria-label="LinkedIn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                                </svg>
+                                            </a>
+                                            <a href="#" aria-label="Portfolio">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" fill="none">
+                                                    <path
+                                                        d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72">
+                                                    </path>
+                                                    <path
+                                                        d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> </div>
+        </section>
+
+        <section id="contact-section" class="py-5 radius-section" style="padding-top: 8rem; padding-bottom: 8rem;">
+            <div class="container-xl px-3 px-lg-4">
+                <div class="row g-5 align-items-center">
+
+                    <div class="col-lg-5 reveal-anim from-left">
+                        <h2 class="contact-heading">
+                            GET IN<br>TOUCH
+                        </h2>
+                        <p class="contact-subtext mt-4">
+                            Have a project in mind? Or just want to say hi?
+                            We'd love to hear from you. Fill out the form or email us.
+                        </p>
+                        <p class="mt-4" style="font-family: 'Inter', sans-serif;">
+                            <strong>Email:</strong> 
+                            <a href="mailto:hello@echelonmedia.com" class="text-decoration-none text-black">
+                                hello@echelonmedia.com
+                            </a>
+                        </p>
+                        <p class="mt-3" style="font-family: 'Inter', sans-serif;">
+                            <strong>Contact:</strong>
+                            <a href="tel:+911234567890" class="text-decoration-none text-black">
+                                +91 12345 67890
+                            </a>
+                        </p>
+                        <p class="mt-3" style="font-family: 'Inter', sans-serif;">
+                            <strong>WhatsApp:</strong>
+                            <a href="https://wa.me/910987654321" target="_blank" class="text-decoration-none text-black">
+                                +91 09876 54321
+                            </a>
+                        </p>
+                        </div>
+
+                    <div class="col-lg-7 reveal-anim from-right" style="transition-delay: 0.1s;">
+                        <form id="contactForm">
+                        <div class="mb-4">
+                                <label for="contactName" class="form-label fs-5"
+                                    style="font-family: 'Inter', sans-serif; font-weight: 500;">Name</label>
+                                <input type="text" class="form-control" id="contactName" placeholder="Your Name" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="contactEmail" class="form-label fs-5"
+                                    style="font-family: 'Inter', sans-serif; font-weight: 500;">Email</label>
+                                <input type="email" class="form-control" id="contactEmail"
+                                    placeholder="your.email@example.com" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="contactMessage" class="form-label fs-5"
+                                    style="font-family: 'Inter', sans-serif; font-weight: 500;">Message</label>
+                                <textarea class="form-control" id="contactMessage" rows="6"
+                                    placeholder="Tell us about your project..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-dark-submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <footer class="bg-white text-muted py-4" style="border-top: 1px solid #dee2e6;">
+            <div class="container-xl px-3 px-lg-4">
+                <div class="row align-items-center">
+
+                    <div class="col-12 text-center mb-3">
+                        <img src="assets/img/echelon-logo-dark.png" alt="Echelon Media Logo" style="height: 30px;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/150x40/FFFFFF/000000?text=ECHELON';">
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <p class="mb-0" style="font-family: 'Inter', sans-serif; font-size: 0.9rem;">
+                            Designed by Echelon Media
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="" id="modalImageContent" class="img-fluid" alt="Zoomed Image">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Hero & Nav Logic ---
+            const loadingScreen = document.getElementById('loading-screen');
+            const introVideo = document.getElementById('intro-video');
+            const navbar = document.querySelector('.navbar');
+            const changingWord = document.getElementById('changing-word');
+            const heroSection = document.querySelector('.hero-section');
+            const body = document.body;
+
+            // --- NEW: Get main element and its scroll start position ---
+            const mainElement = document.querySelector('main');
+            let mainScrollStart = mainElement.offsetTop;
+
+            // --- NEW: Update scroll start position on window resize ---
+            window.addEventListener('resize', () => {
+                mainScrollStart = mainElement.offsetTop;
+            });
+
+            // --- Explicitly pause video when it ends ---
+            if (introVideo) {
+                introVideo.addEventListener('ended', () => {
+                    introVideo.pause();
+                });
+            }
+
+            // --- 1. Loading Screen Logic ---
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                    if (introVideo) {
+                        setTimeout(() => {
+                            var promise = introVideo.play();
+                            if (promise !== undefined) {
+                                promise.catch(error => { console.error("Autoplay was prevented:", error); });
+                            }
+                        }, 1000);
+                    }
+                }, 2000);
+            }
+
+            // --- 2. Navbar Logic (appears after a delay) ---
+            setTimeout(() => {
+                if (navbar) navbar.classList.add('visible');
+            }, 5000);
+
+            // --- 3. Scroll Animation Logic ---
+            let hasScrolledOnce = false;
+
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+
+                // Toggle 'scrolled' class on body to trigger text fade-in
+                if (scrollPosition > 50 && !hasScrolledOnce) {
+                    body.classList.add('scrolled');
+                    hasScrolledOnce = true;
+                }
+
+                // Toggle 'scrolled-past-hero' class on body for navbar background change
+                if (heroSection && scrollPosition > heroSection.offsetHeight - 50) {
+                    body.classList.add('scrolled-past-hero');
+                } else {
+                    body.classList.remove('scrolled-past-hero');
+                }
+
+                // --- MODIFIED: HERO SCROLL-AWAY LOGIC ---
+                // --- UPDATED: HERO SCROLL-AWAY LOGIC (Desktop + Mobile) ---
+                if (scrollPosition >= mainScrollStart) {
+                    const scrollPastHero = scrollPosition - mainScrollStart;
+
+                    // MOBILE BEHAVIOR (moves up, no fade)
+                    if (window.innerWidth <= 768) {
+                        heroSection.style.transform = `translateY(-${scrollPastHero * 0.6}px)`; // move up slower for smoothness
+                        heroSection.style.opacity = "1"; // keep video fully visible
+                    }
+                    // DESKTOP BEHAVIOR (same as before)
+                    else {
+                        heroSection.style.transform = `translateY(-${scrollPastHero}px)`;
+                    }
+                } else {
+                    heroSection.style.transform = 'translateY(0px)';
+                    heroSection.style.opacity = "1"; // reset opacity always
+                }
+                // --- END UPDATED LOGIC ---
+
+                // --- END OF MODIFIED LOGIC ---
+            });
+
+            // --- 4. Changing Text Animation (NEW FLIP LOGIC) ---
+            const words = ["Create", "Inspire", "Amplify", "Succeed"];
+            let wordIndex = 0;
+            if (changingWord) {
+                setInterval(() => {
+                    // 1. Add class to flip out
+                    changingWord.classList.add('is-flipping-out');
+
+                    // 2. Wait for flip-out animation to finish (400ms)
+                    setTimeout(() => {
+                        // 3. Change the word
+                        wordIndex = (wordIndex + 1) % words.length;
+                        const newWord = words[wordIndex];
+                        changingWord.textContent = newWord;
+                        changingWord.dataset.text = newWord; // Update data-text
+
+                        // 4. Remove flip-out and add flip-in
+                        changingWord.classList.remove('is-flipping-out');
+                        changingWord.classList.add('is-flipping-in');
+
+                        // 5. (Optional) Clean up flip-in class after it finishes
+                        setTimeout(() => {
+                            changingWord.classList.remove('is-flipping-in');
+                        }, 400); // Must match flip-in duration
+
+                    }, 400); // Must match flip-out duration
+
+                }, 3000); // Total interval
+            }
+            // --- END OF NEW FLIP LOGIC ---
+
+
+            // --- 5. Intersection Observer for .reveal-on-scroll AND .reveal-anim ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.3, // Trigger when 10% of the element is visible
+                rootMargin: "0px 0px -120px 0px"
+            });
+
+            const elements = document.querySelectorAll('.reveal-on-scroll, .reveal-anim, .slide-down');
+            elements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // --- JAVASCRIPT FOR IMAGE MODAL ---
+            const imageModal = document.getElementById('imageModal');
+            if (imageModal) {
+                imageModal.addEventListener('show.bs.modal', function (event) {
+                    const triggerElement = event.relatedTarget;
+                    const imageSrc = triggerElement.getAttribute('data-img-src');
+                    const modalImage = imageModal.querySelector('#modalImageContent');
+                    modalImage.src = imageSrc;
+                });
+            }
+            // --- END OF IMAGE MODAL JAVASCRIPT ---
+
+            // --- START: New Contact Form Mailto Logic ---
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    // 1. Prevent the default form submission (which reloads the page)
+                    event.preventDefault();
+
+                    // 2. Get the values from the form fields
+                    const name = document.getElementById('contactName').value;
+                    const email = document.getElementById('contactEmail').value;
+                    const message = document.getElementById('contactMessage').value;
+
+                    // 3. Define the recipient email
+                    const toEmail = 'hello@echelonmedia.com';
+
+                    // 4. Create the subject and body for the email
+                    const subject = `New Inquiry from ${name}`;
+                    const body = `
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+                    `;
+
+                    // 5. URL-encode the subject and body for the mailto link
+                    const encodedSubject = encodeURIComponent(subject);
+                    // .trim() cleans up any leading/trailing whitespace from the template literal
+                    const encodedBody = encodeURIComponent(body.trim()); 
+
+                    // 6. Create the final mailto: link
+                    const mailtoLink = `mailto:${toEmail}?subject=${encodedSubject}&body=${encodedBody}`;
+
+                    // 7. Open the user's default email client
+                    // This will open Gmail if it's the default on their browser
+                    window.location.href = mailtoLink;
+                });
+            }
+            // --- END: New Contact Form Mailto Logic ---
+
+        });
+        
+    </script>
+
+</body>
+
+</html>

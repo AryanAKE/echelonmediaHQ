@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echelon Media | Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load icon library (Lucide) - FIXED -->
+    <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+
+    <style>
+      /* Import custom font */
+      @import url("https://fonts.cdnfonts.com/css/coolvetica");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
+
+      body {
+        font-family: "Inter", sans-serif;
+        /* UPDATED: Light theme from original */
+        background-color: #ffffff;
+        color: #212529;
+      }
+
+      /* Custom display font from original site */
+      .font-display {
+        font-family: "Coolvetica", sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+      }
+
+      /* Custom accent color (UPDATED to match original) */
+      .text-accent {
+        color: #1a4a43;
+      }
+      .bg-accent {
+        background-color: #1a4a43;
+      }
+      .border-accent {
+        border-color: #1a4a43;
+      }
+
+      /* --- Loading Screen (UPDATED for light theme) --- */
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* UPDATED */
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        opacity: 1;
+        visibility: visible;
+      }
+      #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loading-dots div {
+        width: 12px;
+        height: 12px;
+        /* UPDATED */
+        background-color: #6c757d;
+        border-radius: 50%;
+        margin: 0 5px;
+        animation: bounce 1.4s infinite ease-in-out both;
+      }
+      .loading-dots .dot1 {
+        animation-delay: -0.32s;
+      }
+      .loading-dots .dot2 {
+        animation-delay: -0.16s;
+      }
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+
+      /* --- Scroll Reveal Animations --- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* --- Tab Navigation --- */
+      .tab-button {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+      .tab-button::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        /* UPDATED */
+        background-color: #1a4a43;
+        transition: width 0.3s ease;
+      }
+      .tab-button.active {
+        /* UPDATED */
+        color: #1a4a43;
+      }
+      .tab-button.active::after {
+        width: 100%;
+      }
+
+      /* --- Card Hover Effects --- */
+      .project-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .project-card:hover {
+        transform: translateY(-8px);
+        /* UPDATED: Softer shadow for light theme */
+        box-shadow: 0 10px 30px rgba(26, 74, 67, 0.1);
+      }
+
+      .video-card .thumbnail-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .video-card:hover .thumbnail-overlay {
+        opacity: 1;
+      }
+      .video-card:hover img {
+        transform: scale(1.05);
+      }
+      .video-card img {
+        transition: transform 0.3s ease;
+      }
+
+      /* --- Modal Styling --- */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+        animation: fadeIn 0.3s ease;
+      }
+      .modal-content {
+        position: relative;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        max-width: 900px;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: zoomIn 0.3s ease;
+        /* UPDATED: Add a background for the content itself */
+        background: #111;
+        border-radius: 8px;
+      }
+      .modal-video-content {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        height: 0;
+        overflow: hidden;
+        /* UPDATED */
+        background: #000;
+        border-radius: 8px;
+      }
+      /* UPDATED: This style now applies to the <video> tag */
+      .modal-video-content video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px; /* Added for consistency */
+      }
+      .modal-close {
+        position: absolute;
+        top: -35px;
+        right: -5px;
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+      .modal-close:hover {
+        /* UPDATED */
+        color: #1a4a43;
+      }
+
+      /* Graphics Modal Nav */
+      .modal-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 1rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        z-index: 1010;
+      }
+      .modal-nav:hover {
+        /* UPDATED */
+        background: rgba(26, 74, 67, 0.8);
+      }
+      #graphics-prev {
+        left: 1rem;
+      }
+      #graphics-next {
+        right: 1rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes zoomIn {
+        from {
+          transform: translateY(-50%) scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(-50%) scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <!-- UPDATED: Light theme classes -->
+  <body class="bg-white text-gray-800 antialiased">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="text-center">
+        <!-- UPDATED -->
+        <h1 class="font-display text-gray-900 text-5xl mb-6">Echelon Media</h1>
+        <div class="loading-dots flex justify-center mb-6">
+          <div class="dot1"></div>
+          <div class="dot2"></div>
+          <div class="dot3"></div>
+        </div>
+        <p class="text-gray-400 text-sm tracking-widest">LOADING EXPERIENCE</p>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header
+      class="fixed top-0 left-0 w-full z-50 p-6 md:p-8 transition-all duration-300"
+      id="navbar"
+    >
+      <div
+        class="container mx-auto max-w-7xl flex justify-between items-center"
+      >
+        <!-- Logo -->
+        <a class="navbar-brand" href="index.html">
+          <img
+            src="assets/img/echelon logo trans.png"
+            alt="Echelon Media Logo"
+            style="height: 40px"
+            onerror="this.onerror=null;this.src='https://placehold.co/150x40/000000/E0E0E0?text=ECHELON';"
+          />
+        </a>
+        <!-- Socials & Contact -->
+        <div class="flex items-center space-x-6">
+          <a
+            href="#"
+            class="text-gray-500 hover:text-accent transition-colors"
+            aria-label="X/Twitter"
+          >
+            <i data-lucide="twitter" class="w-5 h-5"></i>
+          </a>
+          <a
+            href="#"
+            class="text-gray-500 hover:text-accent transition-colors"
+            aria-label="Instagram"
+          >
+            <i data-lucide="instagram" class="w-5 h-5"></i>
+          </a>
+          <a
+            href="#"
+            class="text-gray-500 hover:text-accent transition-colors"
+            aria-label="LinkedIn"
+          >
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+          </a>
+          <a
+            href="#contact"
+            class="hidden md:inline-block bg-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-gray-900 transition-colors"
+          >
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="pt-24 md:pt-32">
+      <!-- Hero Section -->
+      <section
+        class="container mx-auto max-w-7xl px-6 py-20 md:py-32 text-center"
+      >
+        <h1
+          class="font-display text-6xl md:text-8xl lg:text-9xl text-gray-900 mb-6 reveal"
+        >
+          Elevate Your <span class="text-accent">Vision</span>
+        </h1>
+        <p
+          class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-12 reveal"
+          style="transition-delay: 0.1s"
+        >
+          We are a full-service creative agency specializing in cinematic video,
+          stunning design, and modern web development.
+        </p>
+
+        <!-- Tab Navigation -->
+        <div
+          class="flex justify-center space-x-8 md:space-x-12 reveal"
+          style="transition-delay: 0.2s"
+        >
+          <button
+            id="video-tab"
+            class="tab-button font-display text-2xl md:text-3xl text-gray-900 active"
+          >
+            Video Edits
+          </button>
+          <button
+            id="graphics-tab"
+            class="tab-button font-display text-2xl md:text-3xl text-gray-900"
+          >
+            Graphic Designs
+          </button>
+          <button
+            id="web-tab"
+            class="tab-button font-display text-2xl md:text-3xl text-gray-900"
+          >
+            Web Development
+          </button>
+        </div>
+      </section>
+
+      <!-- Content Sections -->
+      <div class="container mx-auto max-w-7xl px-6 pb-24">
+        <!-- Video Edits Section - UPDATED STRUCTURE -->
+        <section id="video-section" class="content-section space-y-16">
+          <!-- Category: Ads -->
+          <div>
+            <h2 class="font-display text-4xl text-gray-900 mb-8 reveal">Ads</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- 
+                                          VIDEO CARD 1 (ADS)
+                                          
+                                          *** IMPORTANT UPDATE ***
+                                          To use a local video file:
+                                          1. Create a folder named 'videos' in the same directory as this HTML file.
+                                          2. Place your video file (e.g., 'my-ad-1.mp4') inside that 'videos' folder.
+                                          3. Change 'data-video-src' to the relative path: 'videos/my-ad-1.mp4'
+                                          
+                                          - Replace the 'img src' with your video thumbnail.
+                                    -->
+              <div
+                class="video-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden cursor-pointer project-card"
+                data-video-src="videos/placeholder-ad-1.mp4"
+              >
+                <!--UPDATED: Example relative path -->
+
+                <div class="relative">
+                  <img
+                    src="https://placehold.co/600x400/1a4a43/ffffff?text=Ad+Thumbnail+1"
+                    alt="Video Thumbnail"
+                    class="w-full h-auto aspect-video object-cover"
+                  />
+                  <div
+                    class="thumbnail-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  >
+                    <i
+                      data-lucide="play-circle"
+                      class="w-16 h-16 text-white"
+                    ></i>
+                  </div>
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-xl text-gray-900 mb-1">
+                    Corporate Reel
+                  </h3>
+                  <p class="text-sm text-gray-600">Brand Storytelling</p>
+                </div>
+              </div>
+              <!-- 
+                                          VIDEO CARD 2 (ADS)
+                                          
+                                          *** IMPORTANT UPDATE ***
+                                          - Change 'data-video-src' to your local file path (e.g., 'videos/my-ad-2.mp4')
+                                          - Replace 'img src' with your thumbnail.
+                                    -->
+              <div
+                class="video-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden cursor-pointer project-card"
+                data-video-src="assets/video/promotional video.mp4"
+              >
+                <div class="relative">
+                  <img
+                    src="assets/img/illustrative.png"
+                    alt="Video Thumbnail"
+                    class="w-full h-auto aspect-video object-cover"
+                  />
+                  <div
+                    class="thumbnail-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  >
+                    <i
+                      data-lucide="play-circle"
+                      class="w-16 h-16 text-white"
+                    ></i>
+                  </div>
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-xl text-gray-900 mb-1">
+                    Product Showcase
+                  </h3>
+                  <p class="text-sm text-gray-600">Dynamic Editing</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category: Podcasts -->
+          <div>
+            <h2 class="font-display text-4xl text-gray-900 mb-8 reveal">
+              Podcasts
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- 
+                                          VIDEO CARD 1 (PODCASTS)
+                                          
+                                          *** IMPORTANT UPDATE ***
+                                          - Change 'data-video-src' to your local file path (e.g., 'videos/podcast-1.mp4')
+                                          - Replace 'img src' with your thumbnail.
+                                    -->
+              <div
+                class="video-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden cursor-pointer project-card"
+                data-video-src=""
+              >
+                <div class="relative">
+                  <img
+                    src="https://placehold.co/600x400/1a4a43/ffffff?text=Podcast+Clip+1"
+                    alt="Video Thumbnail"
+                    class="w-full h-auto aspect-video object-cover"
+                  />
+                  <div
+                    class="thumbnail-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  >
+                    <i
+                      data-lucide="play-circle"
+                      class="w-16 h-16 text-white"
+                    ></i>
+                  </div>
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-xl text-gray-900 mb-1">
+                    Interview Highlight
+                  </h3>
+                  <p class="text-sm text-gray-600">Multi-cam Editing</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category: Reels & Trending -->
+          <div>
+            <h2 class="font-display text-4xl text-gray-900 mb-8 reveal">
+              Reels & Trending
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- 
+                                          VIDEO CARD 1 (REELS)
+                                          
+                                          *** IMPORTANT UPDATE ***
+                                          - Change 'data-video-src' to your local file path (e.g., 'videos/reel-1.mp4')
+                                          - Replace 'img src' with your thumbnail.
+                                    -->
+              <div
+                class="video-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden cursor-pointer project-card"
+                data-video-src="videos/placeholder-reel-1.mp4"
+              >
+                <div class="relative">
+                  <img
+                    src="https://placehold.co/600x400/1a4a43/ffffff?text=Reel+1"
+                    alt="Video Thumbnail"
+                    class="w-full h-auto aspect-video object-cover"
+                  />
+                  <div
+                    class="thumbnail-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  >
+                    <i
+                      data-lucide="play-circle"
+                      class="w-16 h-16 text-white"
+                    ></i>
+                  </div>
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-xl text-gray-900 mb-1">
+                    Viral Trend Edit
+                  </h3>
+                  <p class="text-sm text-gray-600">Short Form Content</p>
+                </div>
+              </div>
+              <!-- 
+                                          VIDEO CARD 2 (REELS)
+
+                                          *** IMPORTANT UPDATE ***
+                                          - Change 'data-video-src' to your local file path (e.g., 'videos/reel-2.mp4')
+                                          - Replace 'img src' with your thumbnail.
+                                    -->
+              <div
+                class="video-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden cursor-pointer project-card"
+                data-video-src="videos/placeholder-reel-2.mp4"
+              >
+                <div class="relative">
+                  <img
+                    src="https://placehold.co/600x400/1a4a43/ffffff?text=Reel+2"
+                    alt="Video Thumbnail"
+                    class="w-full h-auto aspect-video object-cover"
+                  />
+                  <div
+                    class="thumbnail-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  >
+                    <i
+                      data-lucide="play-circle"
+                      class="w-16 h-16 text-white"
+                    ></i>
+                  </div>
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-xl text-gray-900 mb-1">
+                    Travel Reel
+                  </h3>
+                  <p class="text-sm text-gray-600">Cinematic Color Grade</p>
+                </div>
+              </div>
+              <!-- 
+                                          VIDEO CARD 3 (REELS)
+                                          
+                                          *** IMPORTANT UPDATE ***
+                                          - Change 'data-video-src' to your local file path (e.g., 'videos/reel-3.mp4')
+                                          - Replace 'img src' with your thumbnail.
+                                    -->
+              <div
+                class="video-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden cursor-pointer project-card"
+                data-video-src="videos/placeholder-reel-3.mp4"
+              >
+                <div class="relative">
+                  <img
+                    src="https://placehold.co/600x400/1a4a43/ffffff?text=Reel+3"
+                    alt="Video Thumbnail"
+                    class="w-full h-auto aspect-video object-cover"
+                  />
+                  <div
+                    class="thumbnail-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  >
+                    <i
+                      data-lucide="play-circle"
+                      class="w-16 h-16 text-white"
+                    ></i>
+                  </div>
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-xl text-gray-900 mb-1">
+                    Motion Graphic
+                  </h3>
+                  <p class="text-sm text-gray-600">Text Animation</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Graphic Designs Section -->
+        <!-- 
+          *** UPDATED FOR PINTEREST-STYLE MASONRY GRID ***
+          - Replaced 'grid grid-cols-...' with 'columns-...'
+          - Added 'space-y-6' to create vertical gaps
+          - Removed 'aspect-square' from cards
+          - Added 'break-inside-avoid' to cards to prevent them from splitting
+          - Removed 'h-full' from images to let their natural aspect ratio define the height
+        -->
+        <section id="graphics-section" class="content-section hidden">
+          <div class="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
+            <!-- Sample Graphics Card 1 -->
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="0"
+            >
+              <img
+                src="assets/img/media agency logo.png"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <!-- Sample Graphics Card 2 -->
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="1"
+            >
+              <img
+                src="assets/img/posters final 4-02.png"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <!-- Sample Graphics Card 3 -->
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="2"
+            >
+              <img
+                src="assets/img/illustrative.png"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <!-- Sample Graphics Card 4 -->
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="3"
+            >
+              <img
+                src="assets/img/ad company logo.png"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <!-- Sample Graphics Card 5 -->
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="4"
+            >
+              <img
+                src="assets/img/brands/Logo stylized version vf.png"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <!-- Sample Graphics Card 6 -->
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="5"
+            >
+              <img
+                src="https://placehold.co/600x600/f0f0f0/1a4a43?text=Design+6"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="5"
+            >
+              <img
+                src="https://placehold.co/600x600/f0f0f0/1a4a43?text=Design+6"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <div
+              class="graphics-card reveal bg-gray-100 rounded-2xl overflow-hidden cursor-pointer project-card break-inside-avoid"
+              data-graphics-index="5"
+            >
+              <img
+                src="https://placehold.co/600x600/f0f0f0/1a4a43?text=Design+6"
+                alt="Graphic Design"
+                class="w-full object-cover video-card img"
+              />
+            </div>
+            <!-- Add more graphics cards as needed -->
+          </div>
+        </section>
+
+        <!-- Web Development Section -->
+        <section id="web-section" class="content-section hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Sample Web Card 1 -->
+            <a
+              href="https://example.com"
+              target="_blank"
+              class="web-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden project-card block no-underline"
+            >
+              <div class="relative">
+                <img
+                  src="assets/img/findyourspace.png"
+                  alt="Web Project Thumbnail"
+                  class="w-full h-auto aspect-video object-cover object-top"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="font-display text-xl text-gray-900 mb-1">
+                  E-Commerce Platform
+                </h3>
+                <p class="text-sm text-gray-600">React & Node.js</p>
+              </div>
+            </a>
+            <!-- Sample Web Card 2 -->
+            <a
+              href="https://example.com"
+              target="_blank"
+              class="web-card reveal bg-white border border-gray-200 rounded-2xl overflow-hidden project-card block no-underline"
+            >
+              <div class="relative">
+                <img
+                  src="assets/img/Screenshot (52).png"
+                  alt="Web Project Thumbnail"
+                  class="w-full h-auto aspect-video object-cover object-top"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="font-display text-xl text-gray-900 mb-1">
+                  Artist Portfolio
+                </h3>
+                <p class="text-sm text-gray-600">GSAP & Vanilla JS</p>
+              </div>
+            </a>
+            <!-- Add more web cards as needed -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Contact Section -->
+      <section id="contact" class="container mx-auto max-w-7xl px-6 py-24">
+        <!-- UPDATED: Light theme contact section -->
+        <div class="bg-gray-100 p-8 md:p-16 rounded-3xl text-center reveal">
+          <h2 class="font-display text-5xl md:text-7xl text-gray-900 mb-6">
+            Let's Build Something <span class="text-accent">Together</span>
+          </h2>
+          <p class="text-lg text-gray-600 max-w-xl mx-auto mb-8">
+            Have a project in mind or just want to say hi? We'd love to hear
+            from you.
+          </p>
+          <a
+            href="mailto:echelonmedia2025@gmail.com"
+            class="inline-block bg-accent text-white font-bold py-4 px-10 rounded-full text-lg hover:bg-gray-900 transition-colors"
+          >
+            echelonmedia2025@gmail.com
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 mt-24">
+      <div
+        class="container mx-auto max-w-7xl px-6 py-8 flex flex-col md:flex-row justify-between items-center"
+      >
+        <p class="text-gray-500 text-sm mb-4 md:mb-0">
+          © <span id="footer-year">2024</span> Echelon Media. All rights
+          reserved.
+        </p>
+        <div class="flex items-center space-x-6">
+          <a
+            href="#"
+            class="text-gray-500 hover:text-accent transition-colors"
+            aria-label="X/Twitter"
+          >
+            <i data-lucide="twitter" class="w-5 h-5"></i>
+          </a>
+          <a
+            href="#"
+            class="text-gray-500 hover:text-accent transition-colors"
+            aria-label="Instagram"
+          >
+            <i data-lucide="instagram" class="w-5 h-5"></i>
+          </a>
+          <a
+            href="#"
+            class="text-gray-500 hover:text-accent transition-colors"
+            aria-label="LinkedIn"
+          >
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="modal">
+      <span class="modal-close" id="video-modal-close">&times;</span>
+      <div class="modal-content">
+        <div class="modal-video-content">
+          <!-- 
+            UPDATED: Replaced the <iframe> with an HTML5 <video> tag.
+            The 'controls' attribute adds play/pause, volume, etc.
+            The 'autoplay' attribute makes it play immediately (like the old YouTube link).
+            The 'preload="metadata"' helps load the video dimensions and duration quickly.
+            The source (src) will be set by the JavaScript.
+          -->
+          <video
+            id="local-video-player"
+            class="absolute top-0 left-0 w-full h-full"
+            controls
+            autoplay
+            preload="metadata"
+          >
+            <!-- Video source is set by JavaScript -->
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graphics Modal -->
+    <div id="graphics-modal" class="modal">
+      <span class="modal-close" id="graphics-modal-close">&times;</span>
+      <!-- UPDATED: max-width and max-height for image container -->
+      <div
+        class="modal-content relative flex items-center justify-center"
+        style="max-width: 80vw; max-height: 80vh; background: transparent"
+      >
+        <img
+          id="graphics-modal-image"
+          src=""
+          alt="Zoomed Graphic Design"
+          class="w-auto h-auto max-w-full max-h-[80vh] mx-auto"
+        />
+
+        <button id="graphics-prev" class="modal-nav">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <button id="graphics-next" class="modal-nav">
+          <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Lucide Icons ---
+        // This replaces all `data-lucide` tags with SVG icons
+        if (window.lucide) {
+          lucide.createIcons();
+        } else {
+          // Fallback for when lucide fails to load
+          console.warn("Lucide icon script failed to load.");
+        }
+
+        // --- Loading Screen ---
+        const loadingScreen = document.getElementById("loading-screen");
+        if (loadingScreen) {
+          setTimeout(() => {
+            loadingScreen.classList.add("hidden");
+          }, 1500); // Shorter load time for better UX
+        }
+
+        // --- Navbar Background on Scroll ---
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 50) {
+            navbar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+            navbar.style.backdropFilter = "blur(10px)";
+            navbar.style.borderBottom = "1px solid #e5e7eb";
+          } else {
+            navbar.style.backgroundColor = "transparent";
+            navbar.style.backdropFilter = "none";
+            navbar.style.borderBottom = "none";
+          }
+        });
+
+        // --- Footer Year ---
+        document.getElementById("footer-year").textContent =
+          new Date().getFullYear();
+
+        // --- Tab Navigation ---
+        const tabs = [
+          document.getElementById("video-tab"),
+          document.getElementById("graphics-tab"),
+          document.getElementById("web-tab"),
+        ];
+        const sections = [
+          document.getElementById("video-section"),
+          document.getElementById("graphics-section"),
+          document.getElementById("web-section"),
+        ];
+
+        // Check hash to set initial state
+        const hash = window.location.hash;
+        let defaultIndex = 0; // Default to 'video' (index 0)
+
+        if (hash === "#graphics-section") {
+          defaultIndex = 1;
+        } else if (hash === "#web-section") {
+          defaultIndex = 2;
+        }
+
+        // Apply initial state based on hash
+        if (defaultIndex !== 0) {
+          // Deactivate the default 'video' tab/section (which are active in the HTML)
+          tabs[0].classList.remove("active");
+          sections[0].classList.add("hidden");
+
+          // Activate the target tab/section
+          tabs[defaultIndex].classList.add("active");
+          sections[defaultIndex].classList.remove("hidden");
+          // The stray 'light.' text was removed from here
+        }
+
+        // Set the activeSection variable based on the (potentially new) default
+        let activeSection = sections[defaultIndex];
+
+        tabs.forEach((tab, index) => {
+          tab.addEventListener("click", () => {
+            if (sections[index] === activeSection) return;
+
+            // Remove active class from all tabs
+            tabs.forEach((t) => t.classList.remove("active"));
+            // Add active class to clicked tab
+            tab.classList.add("active");
+
+            // Fade out the current active section
+            activeSection.style.transition = "opacity 0.3s ease-out";
+            activeSection.style.opacity = "0";
+
+            setTimeout(() => {
+              // Hide the old section
+              activeSection.classList.add("hidden");
+
+              // Prepare the new section
+              const newSection = sections[index];
+              newSection.classList.remove("hidden");
+              newSection.style.opacity = "0";
+              newSection.style.transition = "opacity 0.3s ease-in";
+
+              // Trigger fade in
+              setTimeout(() => {
+                newSection.style.opacity = "1";
+              }, 20); // Small delay to ensure CSS transition applies
+
+              // Update the active section
+              activeSection = newSection;
+            }, 300); // Matches fade-out duration
+          });
+        });
+
+        // --- Video Modal Logic (UPDATED) ---
+        const videoModal = document.getElementById("video-modal");
+        const videoClose = document.getElementById("video-modal-close");
+        // UPDATED: Get the <video> element instead of the <iframe>
+        const localVideoPlayer = document.getElementById("local-video-player");
+        const videoCards = document.querySelectorAll(".video-card");
+
+        videoCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            const videoSrc = card.getAttribute("data-video-src");
+            
+            // Check if we found the player and have a source
+            if (videoSrc && localVideoPlayer) {
+              // UPDATED: Set src, load, and play the <video> element
+              localVideoPlayer.setAttribute("src", videoSrc);
+              localVideoPlayer.load(); // Load the new video source
+              localVideoPlayer.play(); // Start playing the video
+              videoModal.style.display = "block";
+            } else {
+              console.error("Video player element not found or video source is missing.");
+            }
+          });
+        });
+
+        const closeVideoModal = () => {
+          if (localVideoPlayer) {
+            // UPDATED: Pause the video and clear the source to stop playback
+            localVideoPlayer.pause();
+            localVideoPlayer.setAttribute("src", ""); // Clear the source
+            localVideoPlayer.load(); // Unload the video file
+          }
+          videoModal.style.display = "none";
+        };
+        
+        videoClose.addEventListener("click", closeVideoModal);
+        videoModal.addEventListener("click", (e) => {
+          // Close modal if clicking on the background overlay
+          if (e.target === videoModal) closeVideoModal();
+        });
+
+        // --- Graphics Modal Logic ---
+        const graphicsModal = document.getElementById("graphics-modal");
+        const graphicsClose = document.getElementById("graphics-modal-close");
+        const graphicsModalImage =
+          document.getElementById("graphics-modal-image");
+        const graphicsCards = document.querySelectorAll(".graphics-card");
+        const prevButton = document.getElementById("graphics-prev");
+        const nextButton =
+          document.getElementById("graphics-next");
+
+        // Collect all image sources
+        const graphicsSources = Array.from(graphicsCards).map((card) =>
+          card.querySelector("img").getAttribute("src")
+        );
+        let currentGraphicsIndex = 0;
+
+        const updateGraphicsImage = () => {
+          if (graphicsSources.length > 0) {
+            graphicsModalImage.setAttribute(
+              "src",
+              graphicsSources[currentGraphicsIndex]
+            );
+          }
+        };
+
+        graphicsCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            currentGraphicsIndex = parseInt(
+              card.getAttribute("data-graphics-index"),
+              10
+            );
+            updateGraphicsImage();
+            graphicsModal.style.display = "block";
+          });
+        });
+
+        const closeGraphicsModal = () => {
+          graphicsModal.style.display = "none";
+        };
+        graphicsClose.addEventListener("click", closeGraphicsModal);
+        graphicsModal.addEventListener("click", (e) => {
+          if (e.target === graphicsModal) closeGraphicsModal();
+        });
+
+        prevButton.addEventListener("click", (e) => {
+          e.stopPropagation();
+          currentGraphicsIndex =
+            (currentGraphicsIndex - 1 + graphicsSources.length) %
+            graphicsSources.length;
+          updateGraphicsImage();
+        });
+
+        nextButton.addEventListener("click", (e) => {
+          e.stopPropagation();
+          currentGraphicsIndex =
+            (currentGraphicsIndex + 1) % graphicsSources.length;
+          updateGraphicsImage();
+        });
+
+        // --- Scroll Reveal Logic ---
+        const revealElements = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry, index) => {
+              if (entry.isIntersecting) {
+                // Add a staggered delay based on the element's order
+                const delay = (entry.target.dataset.delay || index * 100) + "ms";
+                entry.target.style.transitionDelay = delay;
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target); // Stop observing once visible
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+          }
+        );
+
+        revealElements.forEach((el) => {
+          observer.observe(el);
+        });
+      });
+    </script>
+  </body>
+</html>
