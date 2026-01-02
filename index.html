@@ -9,8 +9,1646 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-<link rel="stylesheet" href="style.css">
-  
+    <!-- <link rel="stylesheet" href="style.css"> -->
+<style>
+    /* Import custom font */
+            @import url('https://fonts.cdnfonts.com/css/coolvetica');
+
+            html {
+                scroll-behavior: smooth;
+                font-size: 95%; /* Global slight text reduction */
+            }
+
+            html, body {
+                overflow-x: hidden !important;
+                width: 100%;
+
+    /* Ensures that if there is a micro-gap, it looks seamless */
+    background-color: #FFFFFF; 
+    overscroll-behavior-y: none; /* Prevents "bounce" effect on Mac/iOS which causes gaps */
+}
+
+            /* --- Base Styles & Light Theme --- */
+            :root {
+                --metallic-grey: #6c757d;
+                /* Softer dark grey for sub-text */
+                --dark-grey: #212529;
+                /* Main text color */
+                --light-grey: #f8f9fa;
+                /* Main background color */
+
+                --background-color: #FFFFFF;
+                --surface-color: #f8f9fa;
+                /* Card and section background */
+                --text-color: #212529;
+                /* Primary text color */
+                --accent-green: #1a4a43;
+                --border-color: #e9ecef;
+            }
+
+            /* Custom base styles */
+            body {
+                font-family: 'Coolvetica', sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+                /* Prevent horizontal scroll */
+            }
+
+            /* --- Loading Screen --- */
+            #loading-screen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--background-color);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            #loading-screen.hidden {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+
+            .loader-content h1 {
+                font-size: 2.25rem; /* Reduced from 2.5rem */
+                font-weight: 700;
+                color: var(--text-color);
+                margin-bottom: 1.35rem;
+                letter-spacing: 2px;
+            }
+
+            .loader-content p {
+                font-size: 0.9rem; /* Reduced from 1rem */
+                color: var(--metallic-grey);
+                letter-spacing: 1.5px;
+            }
+
+            .loading-dots {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1.35rem;
+            }
+
+            .loading-dots div {
+                width: 11px; /* Reduced from 12px */
+                height: 11px; /* Reduced from 12px */
+                background-color: var(--metallic-grey);
+                border-radius: 50%;
+                margin: 0 5px;
+                animation: bounce 1.4s infinite ease-in-out both;
+            }
+
+            .loading-dots .dot1 {
+                animation-delay: -0.32s;
+            }
+
+            .loading-dots .dot2 {
+                animation-delay: -0.16s;
+            }
+
+            @keyframes bounce {
+
+                0%,
+                80%,
+                100% {
+                    transform: scale(0);
+                }
+
+                40% {
+                    transform: scale(1.0);
+                }
+            }
+
+            /* --- Navigation Bar --- */
+            /* This custom class is essential for the slide-in animation */
+            .navbar {
+                transform: translateY(-100%);
+                transition: transform 0.6s ease-out, background-color 0.4s ease-in-out;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                /* Use Bootstrap's padding variables for consistency, but keep vertical padding */
+                --bs-navbar-padding-y: 0.9rem;
+            }
+
+            .navbar.visible {
+                transform: translateY(0);
+            }
+
+            body.scrolled-past-hero .navbar {
+                background: rgba(255, 255, 255, 0.85);
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .navbar-brand img {
+                height: 36px; /* Reduced from 40px */
+            }
+
+            .navbar-nav .nav-link {
+                color: var(--text-color);
+                font-weight: 500;
+                position: relative;
+                transition: color 0.3s;
+                font-size: 0.95rem; /* Slight text reduction */
+                /* Replicate md:space-x-8 from Tailwind */
+            }
+
+            @media (min-width: 768px) {
+                .navbar-nav .nav-item:not(:last-child) {
+                    margin-right: 1.8rem;
+                }
+            }
+
+            .navbar-nav .nav-link:hover {
+                color: #000;
+            }
+
+            .navbar-nav .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: var(--text-color);
+                transition: width 0.3s ease-out;
+            }
+
+            .navbar-nav .nav-link:hover::after {
+                width: 100%;
+            }
+
+            body.scrolled-past-hero .navbar-nav .nav-link {
+                color: var(--text-color);
+            }
+
+            body.scrolled-past-hero .navbar-nav .nav-link:hover {
+                color: #000;
+            }
+
+            /* Custom Toggler Icon to match */
+            .navbar-toggler {
+                border-color: rgba(33, 37, 41, 0.1);
+                padding: 0.25rem 0.5rem;
+            }
+
+            .navbar-toggler-icon {
+                --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2833, 37, 41, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+
+            /* --- Hero Section --- */
+            .hero-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    /* CHANGED: Use dvh for mobile stability, fallback to vh */
+    height: 100vh; 
+    height: 100dvh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* CHANGED: Add will-change to prevent flickering/blank spaces */
+    will-change: transform, opacity; 
+    transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+}
+
+            #intro-video-container {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    width 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    height 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    left 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    top 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    border-radius 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    opacity 0.8s ease;
+                z-index: 5;
+            }
+
+            #intro-video {
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+                transition: opacity 0.5s ease, width 0.8s ease, height 0.8s ease;
+                max-width: none;
+            }
+
+            #hero-content-container {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding: 1.8rem;
+                z-index: 10;
+                transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    width 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    height 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    left 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    justify-content 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+
+            .hero-text {
+                text-align: right;
+                opacity: 0;
+                transform: translateY(20px);
+                margin-left: 85px;
+                transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+                /* NEW: Moved from inline */
+                font-family: 'Coolvetica', sans-serif;
+                text-align: left;
+            }
+
+            /* NEW: Hero H1 styles moved from inline */
+            .hero-main-heading {
+                font-weight: 100;
+                font-size: 180px; /* Reduced from 200px */
+                margin-bottom: 0.9rem;
+                color: var(--dark-grey);
+                text-shadow: none;
+                letter-spacing: 1.5px;
+                /* <-- ADDED THIS for tighter text */
+                line-height: 0.9;
+                /* <-- ADDED THIS for tighter lines */
+            }
+
+            .hero-text h1 {
+                /* Fallback in case class isn't applied */
+                font-size: 4.5rem; /* Reduced from 5rem */
+                font-weight: 550;
+                margin-bottom: 0.9rem;
+                color: var(--dark-grey);
+                text-shadow: none;
+            }
+
+            .animated-text-container {
+                font-size: 2.25rem; /* Reduced from 2.5rem */
+                font-weight: 300;
+                color: var(--dark-grey);
+                text-shadow: none;
+                letter-spacing: 2px;
+                /* <-- ADDED THIS to give it some space back */
+            }
+
+            .static-text {
+                font-weight: 700;
+                color: var(--dark-grey);
+            }
+
+            .glitch-text {
+                position: relative;
+                display: inline-block;
+                perspective: 300px;
+                /* <-- ADDED THIS for 3D effect */
+                transform-origin: center center;
+                /* <-- ADDED THIS */
+            }
+
+            @keyframes flip-in {
+                from {
+                    transform: rotateX(-90deg);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: rotateX(0deg);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes flip-out {
+                from {
+                    transform: rotateX(0deg);
+                    opacity: 1;
+                }
+
+                to {
+                    transform: rotateX(90deg);
+                    opacity: 0;
+                }
+            }
+
+            .glitch-text.is-flipping-out {
+                animation: flip-out 0.4s ease-in forwards;
+            }
+
+            .glitch-text.is-flipping-in {
+                animation: flip-in 0.4s ease-out forwards;
+            }
+
+            /* --- Scroll Triggered Animations --- */
+            body.scrolled #intro-video-container {
+                width: 58.333333%;
+                /* 7/12 */
+                left: 0;
+            }
+
+            body.scrolled #hero-content-container {
+                justify-content: flex-end;
+            }
+
+            body.scrolled .hero-text {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+
+            /* --- Responsive Design --- */
+            @media (max-width: 992px) {
+                #hero-content-container {
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    padding-bottom: 15vh;
+                }
+
+                .hero-text {
+                    text-align: center;
+                    /* MOBILE CHANGE: Center text */
+                    margin-left: 0;
+                }
+
+                /* NEW: Responsive hero heading */
+                .hero-main-heading {
+                    font-size: 3.15rem; /* Reduced from 3.5rem */
+                    letter-spacing: 3px; /* MOBILE CHANGE: Was 5px */
+                }
+
+                .hero-text h1 {
+                    font-size: 2.7rem; /* Reduced from 3rem */
+                    /* Fallback */
+                }
+
+                .animated-text-container {
+                    font-size: 1.35rem; /* Reduced from 1.5rem */
+                }
+
+                /* MOBILE CHANGE: Make scrolled video smaller and centered */
+                body.scrolled #intro-video-container {
+                    width: 80%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    opacity: 0.3;
+                    height: 60vh;
+                    top: 20vh;
+                    border-radius: 22px; /* Slight reduction */
+                    overflow: hidden;
+                }
+
+                /* MOBILE CHANGE: Ensure video covers new smaller container */
+                body.scrolled #intro-video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+
+                body.scrolled #hero-content-container {
+                    justify-content: flex-end;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .navbar-brand img {
+                    height: 32px; /* Reduced from 35px */
+                }
+
+                /* --- START: Mobile Hero Styles (Merged) --- */
+                .hero-section {
+                    height: 100vh;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    text-align: lef;
+                }
+
+                #intro-video-container {
+                    position: relative;
+                    width: 100%;
+                    height: 70vh;
+                    overflow: hidden; /* ✅ Ensures any overflow is cut off */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    top: 0;
+                    left: 0;
+                    transform: none;
+                    opacity: 1;
+                }
+
+                #intro-video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 0;
+                    display: block;    /* ✅ Prevent inline gaps */
+                    max-width: 100vw;    /* ✅ Prevent overflow beyond viewport */
+                    overflow: hidden;    /* ✅ Contain overflow */
+                }
+
+                #hero-content-container {
+                    position: relative;    /* ✅ instead of absolute for mobile */
+                    width: 100%;
+                    height: auto;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    padding: 1rem 1rem; /* MODIFIED: Reduced top padding */
+                }
+
+                /* This overrides the 992px styles */
+                body.scrolled #intro-video-container {
+                    width: 100%;
+                    left: 0;
+                    transform: none;    /* ✅ Prevent sideways shift */
+                    opacity: 1;      /* ✅ No fade */
+                    height: 70vh;      /* ✅ Keep same size as before scroll */
+                    top: 0;          /* ✅ Prevent downward shift */
+                    border-radius: 0;    /* ✅ Keep full edge */
+                    overflow: hidden;
+                }
+
+                .hero-section {
+                    flex-direction: column;
+                }
+
+                .hero-main-heading {
+                    font-size: 2.7rem;  /* Reduced from 3rem */
+                    letter-spacing: 2px;
+                }
+
+                .hero-text h1 {
+                    font-size: 2.7rem; /* Reduced from 3rem */
+                }
+
+                .animated-text-container {
+                    font-size: 1.1rem; /* Reduced from 1.2rem */
+                }
+                /* --- END: Mobile Hero Styles (Merged) --- */
+
+
+                .section-heading-massive {
+                    font-size: 54px; /* Reduced from 60px */
+                    letter-spacing: 3px; /* MOBILE CHANGE: Was 5px */
+                }
+
+                /* --- WHAT WE DO MOBILE FIX START --- */
+                #what-we-do-section .card-container {
+                    min-height: auto; /* Let content define height */
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1.35rem; /* Space between cards */
+                    margin-top: -1.8rem; /* Adjust overlap */
+                }
+                
+                #what-we-do-section .card-item {
+                    width: 115px; /* Reduced from 130px */
+                    height: 115px; /* Reduced from 130px */
+                    border-radius: 22px;
+                    position: relative; /* MODIFIED: No longer absolute */
+                    left: auto !important;
+                    top: auto !important;
+                    right: auto !important;
+                    transform: none !important; /* Clear transforms */
+                    opacity: 1 !important; /* Ensure visible */
+                    transition: transform 0.3s ease-out;
+                }
+
+                #what-we-do-section .card-item:hover {
+                    transform: scale(1.05) !important; /* Add simple hover */
+                }
+                /* --- WHAT WE DO MOBILE FIX END --- */
+
+                .video-grid-overlap {
+                    margin-top: -72px; /* Reduced from -80px */
+                }
+
+                /* MOBILE CHANGE: Adjust video card height */
+                .video-card-col .video-card {
+                    height: 315px !important; /* Reduced from 350px */
+                }
+
+                /* MOBILE CHANGE: Disable vertical translate */
+                .lg-translate-y-12 {
+                    transform: none !important;
+                }
+
+                .graphic-design-heading {
+                    font-size: 63px; /* Reduced from 70px */
+                }
+
+                /* MOBILE CHANGE: Adjust image grid heights */
+                #graphic-design-section .row .col-lg-6:nth-child(2) .col-6 .radius-large {
+                    height: 18rem !important; /* Reduced from 20rem */
+                }
+
+                #graphic-design-section .row .col-lg-6:nth-child(2) .col-12 .radius-large {
+                    height: 8.5rem !important; /* Reduced from 9.5rem */
+                }
+
+                .web-dev-heading {
+                    font-size: 81px; /* Reduced from 90px */
+                    letter-spacing: 4.5px;
+                    margin-top: -10px;
+                }
+                
+                /* MOBILE CHANGE: Adjust team heading sizes */
+                .text-9xl {
+                    font-size: 5.4rem; /* Reduced from 6rem */
+                }
+                .text-5xl {
+                    font-size: 2.25rem; /* Reduced from 2.5rem */
+                }
+
+                #contact-section .contact-heading {
+                    font-size: 72px; /* Reduced from 80px */
+                }
+            }
+
+            @media (max-width: 640px) {
+                /* --- WHAT WE DO SMALLER MOBILE FIX START --- */
+                #what-we-do-section .card-item {
+                    width: 90px; /* Reduced from 100px */
+                    height: 90px; /* Reduced from 100px */
+                    border-radius: 18px;
+                }
+
+                #what-we-do-section .card-container {
+                    min-height: auto; /* Was 150px */
+                    gap: 0.9rem; /* Less space */
+                }
+                /* --- WHAT WE DO SMALLER MOBILE FIX END --- */
+            }
+            
+            @media (max-width: 576px) {
+                
+
+                .video-grid-overlap {
+                    margin-top: -45px; /* Reduced from -50px */
+                }
+                
+                /* MOBILE CHANGE: Adjust video card height */
+                .video-card-col .video-card {
+                    height: 270px !important; /* Reduced from 300px */
+                }
+
+                .web-dev-heading {
+                    font-size: 180px; /* Reduced from 200px */
+                    letter-spacing: 3px;
+                    margin-top: -65px;
+                }
+                #web-development-section{
+                    margin-top: -29px;
+                }
+
+                /* MOBILE CHANGE: Adjust web-dev image height */
+                #web-development-section .radius-large {
+                    height: 13.5rem !important; /* Reduced from 15rem */
+                }
+
+                /* NEW: Added smaller breakpoint */
+                #contact-section .contact-heading {
+                    font-size: 63px; /* Reduced from 70px */
+                    letter-spacing: 4.5px;
+                }
+            }
+
+            #web-development-section{
+                margin-top: -27px;
+            }
+
+            /* --- STYLES FROM OLD CANVAS (for main content) --- */
+
+            .font-display {
+                font-family: 'Coolvetica', sans-serif;
+                font-weight: 900;
+                text-transform: uppercase;
+                line-height: 0.9;
+                letter-spacing: -0.025em;
+            }
+
+            .radius-large {
+                border-radius: 32px; /* Reduced from 36px */
+            }
+
+            .radius-section {
+                border-radius: 76px; /* Reduced from 84px */
+            }
+
+            /* --- OLD Scroll Reveal (Used by Card Stack) --- */
+            .reveal-on-scroll {
+                opacity: 0;
+                transform: translateY(72px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+
+            .is-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* --- NEW Scroll Reveal Animations (Used by sections) --- */
+            .reveal-anim {
+                opacity: 0;
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+
+            .reveal-anim.from-top {
+                transform: translateY(-72px);
+            }
+
+            .reveal-anim.from-bottom {
+                transform: translateY(72px);
+            }
+
+            .reveal-anim.from-left {
+                transform: translateX(-90px);
+            }
+
+            .reveal-anim.from-right {
+                transform: translateX(90px);
+            }
+
+            .reveal-anim.zoom-in {
+                transform: scale(0.9);
+            }
+
+            /* This rule is shared by BOTH reveal systems */
+            .reveal-on-scroll.is-visible,
+            .reveal-anim.is-visible {
+                opacity: 1;
+                transform: none;
+                /* Resets all transforms */
+            }
+
+
+            /* --- NEW CUSTOM STYLES for "WHAT WE DO" section --- */
+            #what-we-do-section {
+                padding-top: 4.5rem;
+                padding-bottom: 10.8rem;
+                position: relative;
+                z-index: 10;
+                border-bottom-left-radius: 76px; /* Reduced from 84px */
+                border-bottom-right-radius: 76px; /* Reduced from 84px */
+            }
+
+            /* NEW: Massive heading class */
+            .section-heading-massive {
+                font-family: 'Coolvetica Crammed', sans-serif;
+                font-weight: 100;
+                font-size: 180px; /* Reduced from 200px */
+                letter-spacing: 18px;
+            }
+
+            @media (max-width: 992px) {
+                .section-heading-massive {
+                    font-size: 81px; /* Reduced from 90px */
+                    letter-spacing: 7px; /* MOBILE CHANGE: Was 10px */
+                }
+            }
+
+            /* @media (max-width: 768px) is handled above */
+
+            #what-we-do-section .card-container {
+                position: relative;
+                width: 100%;
+                max-width: 5xl;
+                /* Replaced by .max-w-5xl utility */
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: -3.6rem;
+                height: 270px; /* Reduced from 300px */
+                min-height: 225px; /* Reduced from 250px */
+                pointer-events: none;
+            }
+
+            #what-we-do-section .card-item {
+                background-color: #333;
+                border-radius: 32px; /* Reduced from 36px */
+                position: absolute;
+                transition: all 0.5s ease-out;
+                box-shadow: none;
+                width: 180px; /* Reduced from 200px */
+                height: 180px; /* Reduced from 200px */
+                opacity: 0;
+                /* Define the transition speed and timing */
+                transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    opacity 0.6s ease-out;
+            }
+
+            #what-we-do-section .card-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* This makes the image's corners match the parent card's rounded corners */
+                border-radius: inherit;
+            }
+
+            /* Card positions */
+            #card-1 {
+                left: 10%;
+                top: 20%;
+                transform: rotate(-12deg);
+                z-index: 5;
+                transition-delay: 0.2s;
+                /* <-- ADD DELAY */
+            }
+
+            #card-2 {
+                left: 28%;
+                top: 10%;
+                transform: rotate(8deg);
+                z-index: 10;
+                transition-delay: 0.1s;
+                /* <-- ADD DELAY */
+            }
+
+            #card-3 {
+                left: 50%;
+                top: 15%;
+                transform: translateX(-50%) rotate(-5deg);
+                z-index: 15;
+                transition-delay: 0s;
+                /* <-- ADD DELAY (main one) */
+            }
+
+            #card-4 {
+                right: 28%;
+                top: 10%;
+                transform: rotate(12deg);
+                z-index: 10;
+                transition-delay: 0.1s;
+                /* <-- ADD DELAY */
+            }
+
+            #card-5 {
+                right: 10%;
+                top: 20%;
+                transform: rotate(-8deg);
+                z-index: 5;
+                transition-delay: 0.2s;
+                /* <-- ADD DELAY */
+            }
+
+            #card-1.reveal-on-scroll {
+                opacity: 0;
+                /* Start from the left, but keep its final rotation */
+                transform: translateX(-270px) rotate(-12deg);
+            }
+
+            #card-2.reveal-on-scroll {
+                opacity: 0;
+                transform: translateX(-270px) rotate(8deg);
+            }
+
+            #card-3.reveal-on-scroll {
+                opacity: 0;
+                /* Start from the bottom */
+                transform: translateX(-50%) translateY(135px) rotate(-5deg);
+            }
+
+            #card-4.reveal-on-scroll {
+                opacity: 0;
+                transform: translateX(270px) rotate(12deg);
+            }
+
+            #card-5.reveal-on-scroll {
+                opacity: 0;
+                transform: translateX(270px) rotate(-8deg);
+            }
+
+            /* FINAL STATES (these override the generic .is-visible) */
+            #card-1.is-visible {
+                opacity: 1;
+                transform: rotate(-12deg);
+            }
+
+            #card-2.is-visible {
+                opacity: 1;
+                transform: rotate(8deg);
+            }
+
+            #card-3.is-visible {
+                opacity: 1;
+                transform: translateX(-50%) rotate(-5deg);
+            }
+
+            #card-4.is-visible {
+                opacity: 1;
+                transform: rotate(12deg);
+            }
+
+            #card-5.is-visible {
+                opacity: 1;
+                transform: rotate(-8deg);
+            }
+
+            @media (max-width: 1024px) {
+                #what-we-do-section .card-item {
+                    width: 160px; /* Reduced from 180px */
+                    height: 160px; /* Reduced from 180px */
+                }
+
+                #card-1 {
+                    left: 5%;
+                    top: 25%;
+                }
+
+                #card-2 {
+                    left: 20%;
+                    top: 15%;
+                }
+
+                #card-3 {
+                    left: 50%;
+                    top: 10%;
+                    transform: translateX(-50%) rotate(-5deg);
+                }
+
+                #card-4 {
+                    right: 20%;
+                    top: 15%;
+                }
+
+                #card-5 {
+                    right: 5%;
+                    top: 25%;
+                }
+            }
+
+            /* @media (max-width: 768px) handled above */
+            /* @media (max-width: 640px) handled above */
+
+            /* Adjustments for "VIDEO EDITING" section */
+            #video-editing-section {
+                background-color: var(--background-color);
+                padding-top: 0;
+                margin-top: -180px; /* Reduced from -200px */
+                /* --- CHANGE 1 OF 3: Set z-index to 2 --- */
+                z-index: 2;
+                position: relative;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 76px; /* Reduced from 84px */
+                border-bottom-right-radius: 76px; /* Reduced from 84px */
+            }
+
+            /* NEW: Giga heading class */
+            .section-heading-giga {
+                font-family: 'Coolvetica Crammed', sans-serif;
+                font-weight: 100; /* ✅ FIXED (was 5750px) */
+                font-size: 360px;  /* Reduced from 400px */
+                letter-spacing: 18px;
+                color: #000;
+                z-index: 10;
+                position: relative;
+                line-height: 0.9; /* ✅ ADDED base line-height */
+            }
+
+            /* Tablet (992px and down) */
+            @media (max-width: 992px) {
+            .section-heading-giga {
+                margin-top: 3.6rem; /* Pushes it down a bit */
+                font-size: 180px; /* Reduced from 200px */
+                letter-spacing: 1px;
+            }
+            }
+
+            /* Mobile (768px and down) */
+            @media (max-width: 768px) {
+            .section-heading-giga {
+                font-size: 90px; /* Reduced from 100px */
+                letter-spacing: 4.5px;
+                margin-top: 1.8rem; /* Less margin for smaller screen */
+            }
+            }
+
+            /* Small Mobile (576px and down) */
+            @media (max-width: 576px) {
+            .section-heading-giga {
+                font-size: 180px; /* This rule was fine, reduced proportionally */
+                margin-top:900px; /* Reduced from 1000px */
+                letter-spacing: 1px;
+            }
+            }
+
+            /* @media (max-width: 768px) handled above */
+            /* @media (max-width: 576px) handled above */
+
+
+            #video-editing-section h2 {
+                margin-top: 9px;
+                color: var(--dark-grey);
+            }
+
+            /* --- CHANGE 2 OF 3: Add new rule for the black section --- */
+            #graphic-design-section {
+                position: relative;
+                z-index: 1;
+                /* Sits behind the video section */
+                margin-top: -76px; /* Reduced from -84px */
+                /* Pulls it up by the radius amount */
+                /* --- ADD THESE TWO LINES --- */
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+            }
+
+            /* NEW: Graphic Design heading class */
+            .graphic-design-heading {
+                font-family: 'Inter', sans-serif;
+                font-weight: 900;
+                font-size: 126px; /* Reduced from 140px */
+                line-height: 0.8;
+                color: #FFFFFF;
+                text-transform: uppercase;
+                margin-top: -18px;
+            }
+
+            @media (max-width: 992px) {
+                .graphic-design-heading {
+                    font-size: 81px; /* Reduced from 90px */
+                }
+            }
+
+            /* @media (max-width: 768px) handled above */
+
+            /* NEW: Web Dev heading class */
+            .web-dev-heading {
+                font-family: 'Coolvetica Crammed', sans-serif;
+                font-weight: 100;
+                /* 5750px is not a valid weight */
+                font-size: 270px; /* Reduced from 300px */
+                letter-spacing: 18px;
+                color: #000;
+                z-index: 10;
+                margin-top: -105px; /* Reduced from -110px */
+                position: relative;
+            }
+
+            @media (max-width: 992px) {
+                .web-dev-heading {
+                    font-size: 135px; /* Reduced from 150px */
+                    letter-spacing: 9px;
+                    margin-top: -54px;
+                }
+            }
+
+            /* @media (max-width: 768px) handled above */
+            /* @media (max-width: 576px) handled above */
+
+
+          main {
+    padding-top: 0;
+    position: relative;
+    z-index: 2;
+    /* CHANGED: Match the hero height exactly */
+    margin-top: 100vh;
+    margin-top: 100dvh; 
+    background-color: var(--background-color); /* Ensure main has a background to cover the hero */
+}
+            /* * NEW CSS: Replicating lost Tailwind Utilities
+    * These are required because we removed the Tailwind CDN.
+    * */
+            .max-w-7xl {
+                max-width: 72rem; /* Reduced from 80rem */
+            }
+
+            .max-w-5xl {
+                max-width: 57.6rem; /* Reduced from 64rem */
+            }
+
+            .max-w-3xl {
+                max-width: 43.2rem; /* Reduced from 48rem */
+            }
+
+            .max-w-2xl {
+                max-width: 37.8rem; /* Reduced from 42rem */
+            }
+
+            /* Font sizes */
+            .text-2xl {
+                font-size: 1.35rem; /* Reduced from 1.5rem */
+                line-height: 1.8rem;
+            }
+
+            .text-5xl {
+                font-size: 2.7rem; /* Reduced from 3rem */
+                line-height: 1;
+            }
+
+            .text-6xl {
+                font-size: 3.4rem; /* Reduced from 3.75rem */
+                line-height: 1;
+            }
+
+            .text-7xl {
+                font-size: 4rem; /* Reduced from 4.5rem */
+                line-height: 1;
+            }
+
+            .text-8xl {
+                font-size: 5.4rem; /* Reduced from 6rem */
+                line-height: 1;
+            }
+
+            .text-9xl {
+                font-size: 7.2rem; /* Reduced from 8rem */
+                line-height: 1;
+            }
+
+            /* Responsive Font Sizes */
+            @media (min-width: 768px) {
+                .md-text-2xl {
+                    font-size: 1.35rem; /* Reduced */
+                    line-height: 1.8rem;
+                }
+
+                .md-text-7xl {
+                    font-size: 4rem; /* Reduced */
+                    line-height: 1;
+                }
+
+                .md-text-8xl {
+                    font-size: 5.4rem; /* Reduced */
+                    line-height: 1;
+                }
+
+                .md-text-9xl {
+                    font-size: 7.2rem; /* Reduced */
+                    line-height: 1;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .lg-text-8xl {
+                    font-size: 5.4rem; /* Reduced */
+                    line-height: 1;
+                }
+
+                .lg-text-9xl {
+                    font-size: 7.2rem; /* Reduced */
+                    line-height: 1;
+                }
+
+                .lg-text-200px {
+                    font-size: 180px; /* Reduced from 200px */
+                }
+            }
+
+            @media (min-width: 1280px) {
+                .xl-text-250px {
+                    font-size: 225px; /* Reduced from 250px */
+                }
+            }
+
+            /* Spacing */
+            .tracking-wide {
+                letter-spacing: 0.025em;
+            }
+
+            .tracking-widest-lg {
+                letter-spacing: 0.3em;
+            }
+
+            /* Custom class for tracking-[0.3em] */
+
+            /* Replicating translate-y for the grid items */
+            @media (min-width: 1024px) {
+                .lg-translate-y-12 {
+                    transform: translateY(2.7rem); /* Reduced from 3rem */
+                }
+            }
+
+            /* --- STYLES FOR IMAGE MODAL (ZOOM) --- */
+            img[data-bs-toggle="modal"] {
+                cursor: zoom-in;
+                transition: opacity 0.2s ease-in-out;
+            }
+
+            img[data-bs-toggle="modal"]:hover {
+                opacity: 0.8;
+            }
+
+            #imageModal .modal-dialog {
+                /* Make it wider for a better "zoom" */
+                max-width: 80vw;
+            }
+
+            #imageModal .modal-content {
+                /* Transparent background for a lightbox feel */
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+            }
+
+            #imageModal .modal-body {
+                padding: 0;
+            }
+
+            #imageModal .btn-close {
+                /* Custom close button that's visible */
+                position: absolute;
+                top: 0.9rem;
+                right: 0.9rem;
+                z-index: 10;
+                background-color: white;
+                border-radius: 50%;
+                opacity: 0.8;
+                padding: 0.45em;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+            #imageModal .btn-close:hover {
+                opacity: 1;
+            }
+
+            /* --- END OF IMAGE MODAL STYLES --- */
+
+            /* --- NEW CSS FOR VIDEO EDITING HOVER --- */
+            .video-card-col {
+                position: relative;
+                /* Required for z-index */
+                z-index: 1;
+                /* Default layer (behind text) */
+                transition: z-index 0s 0.3s, transform 0.3s ease-out;
+                /* Smooth transform, delay z-index reset */
+            }
+
+            .video-card-col:hover {
+                z-index: 11;
+                /* Hover layer (in front of text which is 10) */
+                transform: scale(1.03);
+                /* Slight zoom effect on hover */
+                transition-delay: 0s, 0s;
+                /* Z-index change is instant on hover */
+            }
+
+            .video-card {
+                overflow: hidden;
+                /* Clips video to the rounded corners */
+            }
+
+            .video-card video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* --- END OF NEW CSS --- */
+
+            /* --- BRAND LOGO STYLES --- */
+            .brand-logo-wrapper {
+                width: 10rem;  /* <--- Reduced from 11rem */
+                height: 10rem; /* <--- Reduced from 11rem */
+                background-color: #ffffff;
+                /* Light background for the logo card */
+                border-radius: 22px;
+                /* Using .radius-large equivalent */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 1.35rem;
+                /* Padding inside the card */
+                box-sizing: border-box;
+                /* Include padding in width/height */
+                transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                /* Subtle shadow */
+            }
+
+            .brand-logo-wrapper:hover {
+                transform: scale(1.08);
+                /* Get a little big smoothly */
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+                /* Enhance shadow on hover */
+            }
+
+            .brand-logo-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                /* Fit the logo inside the padding */
+                filter: grayscale(100%);
+                /* Make logos monochrome for uniformity */
+                opacity: 0.7;
+                transition: filter 0.3s ease-out, opacity 0.3s ease-out;
+            }
+
+            .brand-logo-wrapper:hover img {
+                filter: grayscale(0%);
+                /* Show color on hover */
+                opacity: 1;
+            }
+
+            /* Responsive adjustments for logos */
+            @media (max-width: 576px) {
+                .brand-logo-wrapper {
+                    width: 7.2rem;  /* <--- Reduced from 8rem */
+                    height: 7.2rem; /* <--- Reduced from 8rem */
+                    padding: 0.9rem;
+                }
+            }
+
+            /* --- END BRAND LOGO STYLES --- */
+
+            /* --- TEAM SECTION STYLES --- */
+            .team-card-container {
+                display: flex;
+                width: 100%;
+                gap: 18px; /* Reduced gap */
+                /* Space between cards */
+                align-items: flex-start;
+                /* Align cards to the top */
+            }
+
+            .team-card-small {
+                flex: 1 1 30%;
+                /* Default state: 3 cards, each ~30% */
+                min-width: 160px; /* Reduced from 180px */
+                /* Prevent cards from becoming too narrow */
+                position: relative;
+                border-radius: 22px;
+                cursor: pointer;
+                overflow: hidden;
+                /* IMPORTANT: Hides hover content */
+                /* This is the key transition for expanding/shrinking! */
+                transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+
+            /* --- MODIFIED: This is the background image --- */
+            .team-card-img-wrapper {
+                height: 225px; /* Reduced from 250px */
+                /* Height of the image box */
+                width: 100%;
+                background-color: #333;
+                border-radius: 22px;
+                overflow: hidden;
+                /* Ensures image respects border-radius */
+                transition: opacity 0.4s ease, transform 0.4s ease;
+                /* MODIFIED */
+            }
+
+            .team-card-img-small {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* Scales image to fill the box */
+                border-radius: 22px;
+            }
+
+            .team-card-large {
+                height: 180px; /* Reduced from 200px */
+                background-color: #333;
+                border-radius: 22px;
+                overflow: hidden;
+            }
+
+            .team-card-img-large {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 22px;
+            }
+
+            /* --- MODIFIED: This is the static text --- */
+            .team-card-info-static {
+                color: white;
+                padding-top: 14px;
+                transition: opacity 0.4s ease, visibility 0.4s ease;
+                /* MODIFIED */
+            }
+
+            .team-card-info-static h3 {
+                font-family: 'Coolvetica', sans-serif;
+                font-size: 1.35rem; /* Reduced */
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+
+            .team-card-info-static p {
+                font-family: 'Coolvetica', sans-serif;
+                font-size: 0.9rem; /* Reduced */
+                color: #aaa;
+            }
+
+            /* --- MODIFIED: This is the hover content --- */
+            .team-card-info-hover {
+                display: flex;
+                flex-direction: column;
+                /* MODIFIED: To stack content and socials */
+                justify-content: space-between;
+                /* MODIFIED */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                padding: 22px; /* Reduced padding */
+                box-sizing: border-box;
+                color: white;
+
+                /* Hide by default */
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.4s ease, visibility 0.4s ease;
+            }
+
+            .team-card-info-hover .info-left {
+                flex: 0 0 auto;
+                /* MODIFIED */
+            }
+
+            .team-card-info-hover .info-right {
+                flex: 1 1 auto;
+                /* MODIFIED */
+                margin-top: 9px;
+                /* Space between name and description */
+            }
+
+            .team-card-info-hover h3 {
+                font-family: 'Coolvetica', sans-serif;
+                font-size: 1.35rem; /* Reduced */
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+
+            .team-card-info-hover p {
+                font-family: 'Coolvetica', sans-serif;
+                font-size: 0.9rem; /* Reduced */
+                color: #aaa;
+            }
+
+            .team-card-info-hover .info-right p {
+                font-family: 'Inter', sans-serif;
+                /* Use Inter for the paragraph */
+                font-size: 0.85rem; /* Reduced */
+                color: #ccc;
+                line-height: 1.5;
+            }
+
+            /* --- NEW: Social Icons Styles --- */
+            .team-social-icons {
+                display: flex;
+                gap: 14px;
+                /* Space between icons */
+                margin-top: 14px;
+                /* Space above icons */
+            }
+
+            .team-social-icons a {
+                color: #fff;
+                /* Icon color */
+                opacity: 0.7;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .team-social-icons a:hover {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+
+            .team-social-icons svg {
+                width: 22px; /* Reduced size */
+                height: 22px; /* Reduced size */
+                fill: currentColor;
+                /* Makes SVG color match <a> */
+            }
+
+            /* --- END NEW SOCIALS --- */
+
+
+            /* --- MODIFIED: THE HOVER INTERACTION --- */
+
+            /* 1. When hovering container, shrink cards */
+            .team-card-container:hover .team-card-small {
+                flex: 1 1 20%;
+            }
+
+            /* 2. When hovering specific card, expand it */
+            .team-card-container:hover .team-card-small:hover {
+                flex: 1 1 60%;
+                min-width: 270px; /* Reduced from 300px */
+            }
+
+            /* 3. Fade back the image on hover */
+            .team-card-small:hover .team-card-img-wrapper {
+                opacity: 0.2;
+                /* Fades image to 20% */
+                transform: scale(1.05);
+                /* Optional: slight zoom */
+            }
+
+            /* 4. Hide the static text on hover */
+            .team-card-small:hover .team-card-info-static {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            /* 5. Show the hover content */
+            .team-card-small:hover .team-card-info-hover {
+                opacity: 1;
+                visibility: visible;
+                transition-delay: 0.1s;
+                /* Slight delay for content to appear */
+            }
+
+            /* --- END MODIFIED HOVER --- */
+
+            /* Responsive adjustments for the team section */
+            @media (max-width: 992px) {
+                .team-card-container {
+                    flex-direction: column;
+                    /* Stack vertically on medium screens */
+                    gap: 27px; /* Reduced gap */
+                }
+
+                /* Reset flex-basis controls */
+                .team-card-container:hover .team-card-small {
+                    flex: 1 1 100%;
+                    /* Full width */
+                }
+
+                .team-card-container:hover .team-card-small:hover {
+                    flex: 1 1 100%;
+                    /* Full width */
+                }
+
+                .team-card-small {
+                    flex: 1 1 100%;
+                    /* Full width */
+                    min-width: 100%;
+                    min-height: 290px; /* Reduced from 320px */
+                    /* Min height to contain both states */
+                }
+
+                /* On mobile, just swap content, don't resize */
+                .team-card-small:hover .team-card-img-wrapper {
+                    opacity: 0.2;
+                    transform: scale(1.05);
+                }
+
+                .team-card-small:hover .team-card-info-static {
+                    opacity: 0;
+                    visibility: hidden;
+                }
+
+                .team-card-small:hover .team-card-info-hover {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+            
+            /* @media (max-width: 768px) handled above */
+            /* --- END OF TEAM SECTION STYLES --- */
+
+
+            /* --- NEW: CONTACT SECTION STYLES --- */
+            #contact-section {
+                background-color: #f8f9fa;
+                /* Light grey bg */
+            }
+
+            #contact-section .form-control {
+                background-color: #fff;
+                border-radius: 11px; /* Reduced radius */
+                padding: 0.9rem;
+                border: 1px solid #dee2e6;
+                font-family: 'Inter', sans-serif;
+            }
+
+            #contact-section .form-control:focus {
+                box-shadow: 0 0 0 0.22rem rgba(0, 0, 0, 0.1);
+                border-color: #aaa;
+            }
+
+            #contact-section .btn-dark-submit {
+                background-color: #212529;
+                color: #fff;
+                font-family: 'Coolvetica', sans-serif;
+                font-size: 1rem; /* Reduced from 1.1rem */
+                font-weight: 700;
+                letter-spacing: 1px;
+                padding: 0.72rem 1.8rem; /* Reduced padding */
+                border-radius: 11px;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                border: none;
+            }
+
+            #contact-section .btn-dark-submit:hover {
+                background-color: #444;
+                transform: translateY(-2px);
+            }
+
+            #contact-section .contact-heading {
+                font-family: 'Coolvetica Crammed', sans-serif;
+                font-size: 135px; /* Reduced from 150px */
+                letter-spacing: 10px;
+                color: #000;
+                line-height: 0.9;
+            }
+
+            #contact-section .contact-subtext {
+                font-family: 'Inter', sans-serif;
+                font-size: 1rem; /* Reduced from 1.1rem */
+                color: var(--metallic-grey);
+            }
+
+            /* @media (max-width: 768px) handled above */
+            /* @media (max-width: 576px) handled above */
+            /* --- END CONTACT SECTION STYLES --- */
+
+            /* Slide-down animation for section headings */
+    .slide-down {
+        transform: translateY(-72px); /* start MORE UP */
+        transition: transform 0.9s ease-out;
+    }
+
+    .slide-down.is-visible {
+        transform: translateY(0); /* slide down into place */
+    }
+
+
+    /* For the explore buttons */
+    /* ===============================
+    EXPLORE MORE BUTTON STYLE
+    ================================ */
+
+    .explore-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        padding: 13px 31px; /* Reduced padding */
+        font-family: 'Coolvetica', sans-serif;
+        font-size: 1rem; /* Reduced from 1.1rem */
+        letter-spacing: 1px;
+        color: #000;
+        text-decoration: none;
+        border: 2px solid #000;
+        border-radius: 45px;
+        background: transparent;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Hover animation */
+    .explore-btn:hover {
+        color: #fff;
+        background: #000;
+        transform: translateY(-3px);
+        box-shadow: 0 11px 23px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Arrow animation */
+    .explore-btn span {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .explore-btn:hover span {
+        transform: translateX(5px);
+    }
+
+    /* Dark background version (for black sections) */
+    .bg-black .explore-btn {
+        color: #fff;
+        border-color: #fff;
+    }
+
+    .bg-black .explore-btn:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    /* .explore-btn {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    } */
+</style>
 </head>
 
 <body class="bg-white">
@@ -77,26 +1715,28 @@
     </div>
 
     <main>
-        <section id="what-we-do-section"
-            class="bg-black text-white position-relative z-10 radius-section ">
+        <section id="what-we-do-section" class="bg-black text-white position-relative z-10 radius-section ">
             <div class="container-xl px-3 px-lg-4">
                 <div class="text-center max-w-3xl mx-auto position-relative z-30"
                     style="padding-top: 5rem; padding-top: 8rem;">
 
-                    <h2 class="font-display text-6xl md-text-8xl lg-text-9xl reveal-anim from-top section-heading-massive">
+                    <h2
+                        class="font-display text-6xl md-text-8xl lg-text-9xl reveal-anim from-top section-heading-massive">
                         WHAT WE DO
                     </h2>
 
                     <p class="font-body fs-5 md-fs-4 max-w-2xl mx-auto mt-5 lh-base reveal-anim from-bottom"
                         style="font-family: 'Inter', sans-serif; font-weight: 400">
-                        At Echelon Media, we don’t just create content — we create presence.
-We’re a new-age creative agency that brings storytelling, design, and technology together to make brands look, sound, and feel unforgettable.
-From cinematic edits and scroll-stopping designs to clean, high-performing websites — we make sure your digital vibe matches your vision. <br>
-🎬 Video. 🎨 Design. 💻 Web.
-We build what makes people stop scrolling.
+                        At Echelon Media, we don't just create content — we create presence.
+                        We're a new-age creative agency that brings storytelling, design, and technology together to
+                        make brands look, sound, and feel unforgettable.
+                        From cinematic edits and scroll-stopping designs to clean, high-performing websites — we make
+                        sure your digital vibe matches your vision. <br>
+                        Video, Design, Web.
+                        We build what makes people stop scrolling.
                     </p>
                 </div>
-<br>
+                <br>
                 <div class="card-container w-100 max-w-5xl mx-auto">
                     <div id="card-1" class="card-item radius-large reveal-on-scroll">
                         <img src="assets/img/ad company logo.png" alt="Card Image 1"
@@ -186,45 +1826,46 @@ We build what makes people stop scrolling.
                 <div class="d-flex justify-content-end mt-5">
                     <p class="font-body fs-5 md-fs-4 max-w-3xl text-end lh-base text-secondary-emphasis reveal-anim from-right"
                         style="font-family: 'Inter', sans-serif; font-weight: 400;">
-                        
-We craft stories that feel good to watch.
-Our editing style blends cinematic pacing, bold transitions, crisp sound design, and color that speaks emotion. Whether it’s for YouTube, music videos, brand films, or social media — every frame we cut, every sound we sync, is built to move your audience.<br>
-<b>🎥 Specialties:</b> Cinematic Pacing | SFX | Color Grading | Transitions | Motion Graphics <br>
-“We don’t edit videos — we design experiences.”
+
+                        We craft stories that feel good to watch.
+                        Our editing style blends cinematic pacing, bold transitions, crisp sound design, and color that
+                        speaks emotion. Whether it’s for YouTube, music videos, brand films, or social media — every
+                        frame we cut, every sound we sync, is built to move your audience.<br>
+                        <b>Specialties:</b> Cinematic Pacing | SFX | Color Grading | Transitions | Motion Graphics
+                        <br>
+                        “We don’t edit videos — we design experiences.”
 
                         <br>
-<a href="content.html" class="explore-btn">
-    Explore More Works
-    <span>→</span>
-</a>
+                        <a href="content.html" class="explore-btn">
+                            Explore More Works
+                            <span>→</span>
+                        </a>
 
                     </p>
-                    
+
                 </div>
             </div>
         </section>
-<br>
+        <br>
         <section id="graphic-design-section" class="bg-black text-white py-5 radius-section"
             style="padding-top: 8rem; padding-bottom: 8rem;">
             <div class="container-xl px-3 px-lg-4">
                 <div class="row g-5 align-items-center">
-<div class="col-12 col-lg-6">
-    <h2 class="font-display graphic-design-heading slide-down">
-        GRAP<br>HIC<br>DESIGN<br>ING.
-    </h2>
-</div>
+                    <div class="col-12 col-lg-6">
+                        <h2 class="font-display graphic-design-heading slide-down">
+                            GRAP<br>HIC<br>DESIGN<br>ING.
+                        </h2>
+                    </div>
 
 
                     <div class="col-12 col-lg-6 reveal-anim from-right mt-lg-5">
                         <div class="row g-4">
                             <div class="col-6">
-                                <div class="radius-large" style="height: 24rem; overflow: hidden; background-color: #333;">
-                                    <img src="assets/img/posters final 4-02.png"
-                                        alt="Graphic Design Image 1"
-                                        class="img-fluid"
-                                        style="width: 100%; height: 100%; object-fit: cover;"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#imageModal"
+                                <div class="radius-large"
+                                    style="height: 24rem; overflow: hidden; background-color: #333;">
+                                    <img src="assets/img/posters final 4-02.png" alt="Graphic Design Image 1"
+                                        class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
+                                        data-bs-toggle="modal" data-bs-target="#imageModal"
                                         data-img-src="assets/img/posters final 4-02.png"
                                         onerror="this.onerror=null;this.src='https://placehold.co/400x600/333/FFF?text=Image';">
                                 </div>
@@ -234,12 +1875,9 @@ Our editing style blends cinematic pacing, bold transitions, crisp sound design,
                                     <div class="col-12">
                                         <div class="radius-large"
                                             style="height: 11rem; overflow: hidden; background-color: #333;">
-                                            <img src="assets/img/soc media creative.png"
-                                                alt="Graphic Design Image 2"
-                                                class="img-fluid"
-                                                style="width: 100%; height: 100%; object-fit: cover;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#imageModal"
+                                            <img src="assets/img/soc media creative.png" alt="Graphic Design Image 2"
+                                                class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
+                                                data-bs-toggle="modal" data-bs-target="#imageModal"
                                                 data-img-src="assets/img/soc media creative.png"
                                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/333/FFF?text=Image';">
                                         </div>
@@ -247,12 +1885,9 @@ Our editing style blends cinematic pacing, bold transitions, crisp sound design,
                                     <div class="col-12">
                                         <div class="radius-large"
                                             style="height: 11rem; overflow: hidden; background-color: #333;">
-                                            <img src="assets/img/media agency logo.png"
-                                                alt="Graphic Design Image 3"
-                                                class="img-fluid"
-                                                style="width: 100%; height: 100%; object-fit: cover;"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#imageModal"
+                                            <img src="assets/img/media agency logo.png" alt="Graphic Design Image 3"
+                                                class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
+                                                data-bs-toggle="modal" data-bs-target="#imageModal"
                                                 data-img-src="assets/img/media agency logo.png"
                                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/333/FFF?text=Image';">
                                         </div>
@@ -267,44 +1902,45 @@ Our editing style blends cinematic pacing, bold transitions, crisp sound design,
                     <p class="font-body fs-5 md-fs-4 max-w-3xl text-start lh-base text-light-emphasis reveal-anim from-left"
                         style="font-family: 'Inter', sans-serif; font-weight: 400;">
                         Design that doesn’t just look good — it talks.
-From minimal logos to vibrant illustrations, striking song covers to aesthetic social media grids — we create visuals that align with your brand’s personality and make your audience feel something. <br>
-🎨 Services:
-Logos • Branding • Social Media Creatives • Illustrations • T-shirt Designs • Song Covers
-We make pixels tell stories.
+                        From minimal logos to vibrant illustrations, striking song covers to aesthetic social media
+                        grids — we create visuals that align with your brand’s personality and make your audience feel
+                        something. <br>
+                        Services:
+                        Logos • Branding • Social Media Creatives • Illustrations • T-shirt Designs • Song Covers
+                        We make pixels tell stories.
 
                         <br>
-<a href="content.html#graphics-section" class="explore-btn">
-    Explore More Works
-    <span>→</span>
-</a>
+                        <a href="content.html#graphics-section" class="explore-btn">
+                            Explore More Works
+                            <span>→</span>
+                        </a>
 
-                  <br><br><br>  </p>
-                    
+                        <br><br><br>
+                    </p>
+
                 </div>
             </div>
         </section>
 
-        <section id="web-development-section" class="bg-white py-5" style="padding-top: 8rem; padding-bottom: 8rem;">
+        <section id="web-development-section" class="bg-white py-5" style="padding-top: 5rem; padding-bottom: 8rem;">
             <div class="container-xl px-3 px-lg-4">
                 <div class="text-center mb-5">
-                   <h2 class="web-dev-heading slide-down">
-    WEB DEVELOPMENT
-</h2>
+                    <h2 class="web-dev-heading slide-down">
+                        WEB DEVELOPMENT
+                    </h2>
 
                 </div>
                 <div class="row g-4 g-md-5 reveal-anim zoom-in">
                     <div class="col-12 col-md-6">
                         <div class="radius-large" style="height: 20rem; overflow: hidden;">
-                            <img src="assets/img/Screenshot (52).png"
-                                alt="Web Development Project 1"
+                            <img src="assets/img/Screenshot (52).png" alt="Web Development Project 1"
                                 style="width: 100%; height: 100%; object-fit: cover;"
                                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Web+Project+1';">
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="radius-large" style="height: 20rem; overflow: hidden;">
-                            <img src="assets/img/findyourspace.png"
-                                alt="Web Development Project 2"
+                            <img src="assets/img/findyourspace.png" alt="Web Development Project 2"
                                 style="width: 100%; height: 100%; object-fit: cover;"
                                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Web+Project+2';">
                         </div>
@@ -315,15 +1951,17 @@ We make pixels tell stories.
                     <p class="font-body fs-5 md-fs-4 max-w-3xl text-center lh-base text-secondary-emphasis reveal-anim from-bottom"
                         style="font-family: 'Inter', sans-serif; font-weight: 400;">
                         Because your first impression often starts with a click.
-Our web team builds sleek, responsive, and powerful websites that don’t just look beautiful — they perform. From portfolio sites to business platforms, we make sure your brand feels premium across every screen.
+                        Our web team builds sleek, responsive, and powerful websites that don’t just look beautiful —
+                        they perform. From portfolio sites to business platforms, we make sure your brand feels premium
+                        across every screen.
                         <br>
 
-<a href="content.html#web-section" class="explore-btn">
-    Explore More Works
-    <span>→</span>
-</a>
+                        <a href="content.html#web-section" class="explore-btn">
+                            Explore More Works
+                            <span>→</span>
+                        </a>
 
-</p>
+                    </p>
                     </p>
                 </div>
             </div>
@@ -347,23 +1985,23 @@ Our web team builds sleek, responsive, and powerful websites that don’t just l
                         <img src="assets/img/brands/Digital Hub x orbit Logo_Artboard 1.png" alt="Brand Logo 2"
                             onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+2';">
                     </div>
-                    <div class="brand-logo-wrapper" >
-                        <img src="assets/img/brands/final logo mm.png" alt="Brand Logo 3" 
+                    <div class="brand-logo-wrapper">
+                        <img src="assets/img/brands/final logo mm.png" alt="Brand Logo 3"
                             onerror="this.onerror=null;this.src='https::/placehold.co/150x150/f8f9fa/ccc?text=LOGO+3';">
                     </div>
                     <div class="brand-logo-wrapper">
-                        <img src="assets/img/brands/Logo stylized version vf.png" alt="Brand Logo 4" 
+                        <img src="assets/img/brands/Logo stylized version vf.png" alt="Brand Logo 4"
                             onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+4';">
                     </div>
                     <div class="brand-logo-wrapper">
-                        <img src="assets/img/brands/Tca logo t-02.png" alt="Brand Logo 5" 
+                        <img src="assets/img/brands/Tca logo t-02.png" alt="Brand Logo 5"
                             onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+5';">
                     </div>
                     <div class="brand-logo-wrapper">
                         <img src="assets/img/brands/Wrdmrk with sbtxt-10.png" alt="Brand Logo 5"
                             onerror="this.onerror=null;this.src='https://placehold.co/150x150/f8f9fa/ccc?text=LOGO+5';">
                     </div>
-                    </div>
+                </div>
             </div>
         </section>
 
@@ -377,7 +2015,8 @@ Our web team builds sleek, responsive, and powerful websites that don’t just l
 
                     <div class="col-lg-4 reveal-anim from-left">
                         <p class="font-display text-5xl md-text-7xl">THE</p>
-                        <h2 class="font-display text-9xl md-text-9xl lg-text-200px xl-text-250px" style="letter-spacing: 1px;">
+                        <h2 class="font-display text-9xl md-text-9xl lg-text-200px xl-text-250px"
+                            style="letter-spacing: 1px;">
                             CREW
                         </h2>
                     </div>
@@ -389,7 +2028,8 @@ Our web team builds sleek, responsive, and powerful websites that don’t just l
                         </div>
                     </div>
 
-                </div> <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-12 reveal-anim from-bottom">
                         <div class="team-card-container">
 
@@ -403,17 +2043,20 @@ Our web team builds sleek, responsive, and powerful websites that don’t just l
                                     <p>Chief Editor & visual designer <br>Chief Executive Officer (CEO)</p>
                                 </div>
                                 <div class="team-card-info-hover">
-                                    <div> <div class="info-left">
+                                    <div>
+                                        <div class="info-left">
                                             <h3>Peaby</h3>
                                             <p>Chief Editor & visual designer</p>
-                                             <p>Chief Executive Officer (CEO)</p>
+                                            <p>Chief Executive Officer (CEO)</p>
                                         </div>
                                         <div class="info-right">
                                             <p>
-A storyteller, brings a sense of rhythm and emotion to every frame, blending visuals and sound into seamless cinematic stories.</p>
+                                                A storyteller, brings a sense of rhythm and emotion to every frame,
+                                                blending visuals and sound into seamless cinematic stories.</p>
                                         </div>
                                     </div>
-                                    <div> <div class="team-social-icons">
+                                    <div>
+                                        <div class="team-social-icons">
                                             <a href="#" aria-label="LinkedIn">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                     <path
@@ -445,7 +2088,8 @@ A storyteller, brings a sense of rhythm and emotion to every frame, blending vis
 
                             <div class="team-card-small">
                                 <div class="team-card-img-wrapper">
-                                    <img src="assets/img/rudra.jpg" alt="Team Member Rudrangshu" class="team-card-img-small"
+                                    <img src="assets/img/rudra.jpg" alt="Team Member Rudrangshu"
+                                        class="team-card-img-small"
                                         onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Rudrangshu';">
                                 </div>
                                 <div class="team-card-info-static">
@@ -460,7 +2104,8 @@ A storyteller, brings a sense of rhythm and emotion to every frame, blending vis
                                         </div>
                                         <div class="info-right">
                                             <p>
-Designs that move, literally. Brings shape, color, and rhythm together to build visual identity.</p>
+                                                Designs that move, literally. Brings shape, color, and rhythm together
+                                                to build visual identity.</p>
                                         </div>
                                     </div>
                                     <div>
@@ -500,7 +2145,8 @@ Designs that move, literally. Brings shape, color, and rhythm together to build 
                                             <p>Chief Technology Officer (CTO)</p>
                                         </div>
                                         <div class="info-right">
-                                            <p> The tech brain. Turns visuals and ideas into smooth, functional, and fast digital experiences.</p>
+                                            <p> The tech brain. Turns visuals and ideas into smooth, functional, and
+                                                fast digital experiences.</p>
                                         </div>
                                     </div>
                                     <div>
@@ -530,7 +2176,8 @@ Designs that move, literally. Brings shape, color, and rhythm together to build 
 
                         </div>
                     </div>
-                </div> </div>
+                </div>
+            </div>
         </section>
 
         <section id="contact-section" class="py-5 radius-section" style="padding-top: 8rem; padding-bottom: 8rem;">
@@ -546,7 +2193,7 @@ Designs that move, literally. Brings shape, color, and rhythm together to build 
                             We'd love to hear from you. Fill out the form or email us.
                         </p>
                         <p class="mt-4" style="font-family: 'Inter', sans-serif;">
-                            <strong>Email:</strong> 
+                            <strong>Email:</strong>
                             <a href="mailto:hello@echelonmedia.com" class="text-decoration-none text-black">
                                 hello@echelonmedia.com
                             </a>
@@ -559,18 +2206,20 @@ Designs that move, literally. Brings shape, color, and rhythm together to build 
                         </p>
                         <p class="mt-3" style="font-family: 'Inter', sans-serif;">
                             <strong>WhatsApp:</strong>
-                            <a href="https://wa.me/910987654321" target="_blank" class="text-decoration-none text-black">
+                            <a href="https://wa.me/910987654321" target="_blank"
+                                class="text-decoration-none text-black">
                                 +91 09876 54321
                             </a>
                         </p>
-                        </div>
+                    </div>
 
                     <div class="col-lg-7 reveal-anim from-right" style="transition-delay: 0.1s;">
                         <form id="contactForm">
-                        <div class="mb-4">
+                            <div class="mb-4">
                                 <label for="contactName" class="form-label fs-5"
                                     style="font-family: 'Inter', sans-serif; font-weight: 500;">Name</label>
-                                <input type="text" class="form-control" id="contactName" placeholder="Your Name" required>
+                                <input type="text" class="form-control" id="contactName" placeholder="Your Name"
+                                    required>
                             </div>
                             <div class="mb-4">
                                 <label for="contactEmail" class="form-label fs-5"
@@ -623,203 +2272,195 @@ Designs that move, literally. Brings shape, color, and rhythm together to build 
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Hero & Nav Logic ---
-            const loadingScreen = document.getElementById('loading-screen');
-            const introVideo = document.getElementById('intro-video');
-            const navbar = document.querySelector('.navbar');
-            const changingWord = document.getElementById('changing-word');
-            const heroSection = document.querySelector('.hero-section');
-            const body = document.body;
-
-            // --- NEW: Get main element and its scroll start position ---
-            const mainElement = document.querySelector('main');
-            let mainScrollStart = mainElement.offsetTop;
-
-            // --- NEW: Update scroll start position on window resize ---
-            window.addEventListener('resize', () => {
-                mainScrollStart = mainElement.offsetTop;
-            });
-
-            // --- Explicitly pause video when it ends ---
-            if (introVideo) {
-                introVideo.addEventListener('ended', () => {
-                    introVideo.pause();
-                });
-            }
-
-            // --- 1. Loading Screen Logic ---
-            if (loadingScreen) {
-                setTimeout(() => {
-                    loadingScreen.classList.add('hidden');
-                    if (introVideo) {
-                        setTimeout(() => {
-                            var promise = introVideo.play();
-                            if (promise !== undefined) {
-                                promise.catch(error => { console.error("Autoplay was prevented:", error); });
-                            }
-                        }, 1000);
-                    }
-                }, 2000);
-            }
-
-            // --- 2. Navbar Logic (appears after a delay) ---
-            setTimeout(() => {
-                if (navbar) navbar.classList.add('visible');
-            }, 5000);
-
-            // --- 3. Scroll Animation Logic ---
-            let hasScrolledOnce = false;
-
-            window.addEventListener('scroll', () => {
-                const scrollPosition = window.scrollY;
-
-                // Toggle 'scrolled' class on body to trigger text fade-in
-                if (scrollPosition > 50 && !hasScrolledOnce) {
-                    body.classList.add('scrolled');
-                    hasScrolledOnce = true;
-                }
-
-                // Toggle 'scrolled-past-hero' class on body for navbar background change
-                if (heroSection && scrollPosition > heroSection.offsetHeight - 50) {
-                    body.classList.add('scrolled-past-hero');
-                } else {
-                    body.classList.remove('scrolled-past-hero');
-                }
-
-                // --- MODIFIED: HERO SCROLL-AWAY LOGIC ---
-                // --- UPDATED: HERO SCROLL-AWAY LOGIC (Desktop + Mobile) ---
-                if (scrollPosition >= mainScrollStart) {
-                    const scrollPastHero = scrollPosition - mainScrollStart;
-
-                    // MOBILE BEHAVIOR (moves up, no fade)
-                    if (window.innerWidth <= 768) {
-                        heroSection.style.transform = `translateY(-${scrollPastHero * 0.6}px)`; // move up slower for smoothness
-                        heroSection.style.opacity = "1"; // keep video fully visible
-                    }
-                    // DESKTOP BEHAVIOR (same as before)
-                    else {
-                        heroSection.style.transform = `translateY(-${scrollPastHero}px)`;
-                    }
-                } else {
-                    heroSection.style.transform = 'translateY(0px)';
-                    heroSection.style.opacity = "1"; // reset opacity always
-                }
-                // --- END UPDATED LOGIC ---
-
-                // --- END OF MODIFIED LOGIC ---
-            });
-
-            // --- 4. Changing Text Animation (NEW FLIP LOGIC) ---
-            const words = ["Create", "Inspire", "Amplify", "Succeed"];
-            let wordIndex = 0;
-            if (changingWord) {
-                setInterval(() => {
-                    // 1. Add class to flip out
-                    changingWord.classList.add('is-flipping-out');
-
-                    // 2. Wait for flip-out animation to finish (400ms)
-                    setTimeout(() => {
-                        // 3. Change the word
-                        wordIndex = (wordIndex + 1) % words.length;
-                        const newWord = words[wordIndex];
-                        changingWord.textContent = newWord;
-                        changingWord.dataset.text = newWord; // Update data-text
-
-                        // 4. Remove flip-out and add flip-in
-                        changingWord.classList.remove('is-flipping-out');
-                        changingWord.classList.add('is-flipping-in');
-
-                        // 5. (Optional) Clean up flip-in class after it finishes
-                        setTimeout(() => {
-                            changingWord.classList.remove('is-flipping-in');
-                        }, 400); // Must match flip-in duration
-
-                    }, 400); // Must match flip-out duration
-
-                }, 3000); // Total interval
-            }
-            // --- END OF NEW FLIP LOGIC ---
-
-
-            // --- 5. Intersection Observer for .reveal-on-scroll AND .reveal-anim ---
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, {
-                threshold: 0.3, // Trigger when 10% of the element is visible
-                rootMargin: "0px 0px -120px 0px"
-            });
-
-            const elements = document.querySelectorAll('.reveal-on-scroll, .reveal-anim, .slide-down');
-            elements.forEach(el => {
-                observer.observe(el);
-            });
-
-            // --- JAVASCRIPT FOR IMAGE MODAL ---
-            const imageModal = document.getElementById('imageModal');
-            if (imageModal) {
-                imageModal.addEventListener('show.bs.modal', function (event) {
-                    const triggerElement = event.relatedTarget;
-                    const imageSrc = triggerElement.getAttribute('data-img-src');
-                    const modalImage = imageModal.querySelector('#modalImageContent');
-                    modalImage.src = imageSrc;
-                });
-            }
-            // --- END OF IMAGE MODAL JAVASCRIPT ---
-
-            // --- START: New Contact Form Mailto Logic ---
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(event) {
-                    // 1. Prevent the default form submission (which reloads the page)
-                    event.preventDefault();
-
-                    // 2. Get the values from the form fields
-                    const name = document.getElementById('contactName').value;
-                    const email = document.getElementById('contactEmail').value;
-                    const message = document.getElementById('contactMessage').value;
-
-                    // 3. Define the recipient email
-                    const toEmail = 'hello@echelonmedia.com';
-
-                    // 4. Create the subject and body for the email
-                    const subject = `New Inquiry from ${name}`;
-                    const body = `
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-                    `;
-
-                    // 5. URL-encode the subject and body for the mailto link
-                    const encodedSubject = encodeURIComponent(subject);
-                    // .trim() cleans up any leading/trailing whitespace from the template literal
-                    const encodedBody = encodeURIComponent(body.trim()); 
-
-                    // 6. Create the final mailto: link
-                    const mailtoLink = `mailto:${toEmail}?subject=${encodedSubject}&body=${encodedBody}`;
-
-                    // 7. Open the user's default email client
-                    // This will open Gmail if it's the default on their browser
-                    window.location.href = mailtoLink;
-                });
-            }
-            // --- END: New Contact Form Mailto Logic ---
-
-        });
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 1. Element Selection ---
+        const loadingScreen = document.getElementById('loading-screen');
+        const introVideo = document.getElementById('intro-video');
+        const navbar = document.querySelector('.navbar');
+        const changingWord = document.getElementById('changing-word');
+        const heroSection = document.querySelector('.hero-section');
+        const body = document.body;
+        const mainElement = document.querySelector('main');
         
-    </script>
+        // --- 2. Scroll Calculation Setup ---
+        // We calculate where the "Main" content begins so we know when to move the hero
+        let mainScrollStart = mainElement.offsetTop;
+
+        // Recalculate if the user resizes their browser (e.g., rotating phone)
+        window.addEventListener('resize', () => {
+            mainScrollStart = mainElement.offsetTop;
+        });
+
+        // --- 3. Video Handling ---
+        // Pause video explicitly when it ends to prevent resource drain
+        if (introVideo) {
+            introVideo.addEventListener('ended', () => {
+                introVideo.pause();
+            });
+        }
+
+        // --- 4. Loading Screen Logic ---
+        if (loadingScreen) {
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                
+                // Try to auto-play video after loader vanishes
+                if (introVideo) {
+                    setTimeout(() => {
+                        var promise = introVideo.play();
+                        if (promise !== undefined) {
+                            promise.catch(error => { 
+                                console.log("Autoplay prevented by browser - common on mobile."); 
+                            });
+                        }
+                    }, 1000);
+                }
+            }, 2000);
+        }
+
+        // --- 5. Navbar Logic (Delayed Appearance) ---
+        setTimeout(() => {
+            if (navbar) navbar.classList.add('visible');
+        }, 5000);
+
+        // --- 6. OPTIMIZED SCROLL ANIMATION LOGIC (THE FIX) ---
+        let hasScrolledOnce = false;
+        let ticking = false; // Used for requestAnimationFrame to prevent lag
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    performScrollLogic();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        function performScrollLogic() {
+            const scrollPosition = window.scrollY;
+
+            // A. Navbar & Body State
+            // Toggle 'scrolled' class for text fade-in effects
+            if (scrollPosition > 50 && !hasScrolledOnce) {
+                body.classList.add('scrolled');
+                hasScrolledOnce = true;
+            }
+
+            // Toggle navbar background style
+            if (heroSection && scrollPosition > heroSection.offsetHeight - 50) {
+                body.classList.add('scrolled-past-hero');
+            } else {
+                body.classList.remove('scrolled-past-hero');
+            }
+
+            // B. Hero Parallax Logic (Gap Fix)
+            if (heroSection) {
+                // DESKTOP LOGIC (> 768px):
+                // We manually move the hero up to create a parallax/scroll-away effect.
+                if (window.innerWidth > 768) {
+                    if (scrollPosition >= mainScrollStart) {
+                        const scrollPastHero = scrollPosition - mainScrollStart;
+                        // translate3d forces GPU acceleration for smoother frames
+                        heroSection.style.transform = `translate3d(0, -${scrollPastHero}px, 0)`;
+                    } else {
+                        heroSection.style.transform = 'translate3d(0, 0, 0)';
+                    }
+                } 
+                // MOBILE LOGIC (<= 768px):
+                // We DO NOT move the hero with JS. We rely on CSS `position: fixed`.
+                // The main content (z-index: 2) will slide over the hero (z-index: 1) naturally.
+                // This prevents the "blank gap" caused by math errors on mobile.
+                else {
+                    heroSection.style.transform = 'translate3d(0, 0, 0)';
+                }
+            }
+        }
+
+        // --- 7. Word Flipper Logic (Create -> Inspire -> etc) ---
+        const words = ["Create", "Inspire", "Amplify", "Succeed"];
+        let wordIndex = 0;
+        if (changingWord) {
+            setInterval(() => {
+                // Flip Out
+                changingWord.classList.add('is-flipping-out');
+
+                setTimeout(() => {
+                    // Change Text
+                    wordIndex = (wordIndex + 1) % words.length;
+                    const newWord = words[wordIndex];
+                    changingWord.textContent = newWord;
+                    changingWord.dataset.text = newWord; 
+
+                    // Flip In
+                    changingWord.classList.remove('is-flipping-out');
+                    changingWord.classList.add('is-flipping-in');
+
+                    // Clean up Flip In class
+                    setTimeout(() => {
+                        changingWord.classList.remove('is-flipping-in');
+                    }, 400); 
+
+                }, 400); 
+
+            }, 3000); 
+        }
+
+        // --- 8. Intersection Observer (Scroll Reveal Animations) ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Optional: Stop observing once revealed to save performance
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        }, {
+            threshold: 0.15, // Lowered slightly to trigger earlier on mobile
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        const elements = document.querySelectorAll('.reveal-on-scroll, .reveal-anim, .slide-down');
+        elements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 9. Image Modal Logic (Zoom) ---
+        const imageModal = document.getElementById('imageModal');
+        if (imageModal) {
+            imageModal.addEventListener('show.bs.modal', function (event) {
+                const triggerElement = event.relatedTarget;
+                const imageSrc = triggerElement.getAttribute('data-img-src');
+                const modalImage = imageModal.querySelector('#modalImageContent');
+                modalImage.src = imageSrc;
+            });
+        }
+
+        // --- 10. Contact Form Logic (Mailto) ---
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById('contactName').value;
+                const email = document.getElementById('contactEmail').value;
+                const message = document.getElementById('contactMessage').value;
+                const toEmail = 'hello@echelonmedia.com';
+                const subject = `New Inquiry from ${name}`;
+                const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+                const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body.trim())}`;
+                window.location.href = mailtoLink;
+            });
+        }
+    });
+</script>
 
 </body>
 
