@@ -19,13 +19,15 @@
                 font-size: 95%; /* Global slight text reduction */
             }
 
-            html, body {
-                overflow-x: hidden !important;
-                width: 100%;
-
-    /* Ensures that if there is a micro-gap, it looks seamless */
+html {
     background-color: #FFFFFF; 
-    overscroll-behavior-y: none; /* Prevents "bounce" effect on Mac/iOS which causes gaps */
+    /* Let the HTML tag scroll normally! */
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden; /* Restrict horizontal scroll here instead */
+    overscroll-behavior-y: none; 
 }
 
             /* --- Base Styles & Light Theme --- */
