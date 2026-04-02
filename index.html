@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Echelon Media | Responsive</title>
     
-    <!-- Preconnect for faster font and resource loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.cdnfonts.com">
@@ -31,6 +30,9 @@
             scroll-behavior: smooth;
             font-size: 95%;
             background-color: var(--background-color);
+            /* Strict overflow control to prevent horizontal scrolling */
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -40,8 +42,9 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
+            /* Strict overflow control to prevent horizontal scrolling */
+            max-width: 100%;
+            overflow-x: hidden; 
         }
 
         /* Utility Classes */
@@ -71,11 +74,12 @@
         .radius-section { border-radius: 76px; }
 
         /* Loading Screen */
-        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--background-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.8s ease-out, visibility 0.8s ease-out; opacity: 1; visibility: visible; }
+        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; max-width: 100%; height: 100%; background-color: var(--background-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.8s ease-out, visibility 0.8s ease-out; opacity: 1; visibility: visible; padding: 0 1rem; box-sizing: border-box; overflow: hidden; }
         #loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .loader-content h1 { font-size: 2.25rem; font-weight: 700; color: var(--text-color); margin-bottom: 1.35rem; letter-spacing: 2px; }
+        .loader-content { text-align: center; width: 100%; max-width: 100%; padding: 0 15px; box-sizing: border-box; transition: transform 0.3s ease; }
+        .loader-content h1 { font-size: 2.25rem; font-weight: 700; color: var(--text-color); margin-bottom: 1.35rem; letter-spacing: 2px; width: 100%; }
         .loader-content p { font-size: 0.9rem; color: var(--metallic-grey); letter-spacing: 1.5px; }
-        .loading-dots { display: flex; justify-content: center; margin-bottom: 1.35rem; }
+        .loading-dots { display: flex; justify-content: center; margin-bottom: 1.35rem; width: 100%; }
         .loading-dots div { width: 11px; height: 11px; background-color: var(--metallic-grey); border-radius: 50%; margin: 0 5px; animation: bounce 1.4s infinite ease-in-out both; }
         .loading-dots .dot1 { animation-delay: -0.32s; }
         .loading-dots .dot2 { animation-delay: -0.16s; }
@@ -116,7 +120,20 @@
         body.scrolled .hero-text { opacity: 1; transform: translateY(0); }
 
         /* Hardware Accelerated GPU Rendering */
-        main { padding-top: 0; position: relative; z-index: 2; margin-top: 100vh; margin-top: 100dvh; background-color: #000000; transform: translateZ(0); backface-visibility: hidden; }
+        main { 
+            padding-top: 0; 
+            position: relative; 
+            z-index: 2; 
+            margin-top: 100vh; 
+            margin-top: 100dvh; 
+            background-color: #000000; 
+            transform: translateZ(0); 
+            backface-visibility: hidden; 
+            /* Stop internal element translations from breaking page width */
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
 
         /* Scroll Reveals */
         .reveal-on-scroll { opacity: 0; transform: translateY(72px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: transform, opacity; }
@@ -251,37 +268,44 @@
 
         /* Natural Flow Mobile Layout */
         @media (max-width: 768px) {
-            /* Fixes Hero Video stretching and simplifies document scrolling on mobile/tablet */
-            .hero-section { position: relative; height: auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 100px; }
-            main { margin-top: 0; }
+            .hero-section { position: fixed; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 0; z-index: 1; width: 100%; overflow-x: hidden; }
+            main { margin-top: 100vh; width: 100%; overflow-x: hidden; }
             
-            #intro-video-container { position: relative; width: 90vw !important; max-width: 600px; height: 45vh !important; border-radius: 24px !important; overflow: hidden; transform: none !important; opacity: 1 !important; flex-shrink: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 0 auto; top: 0; left: 0; }
+            #intro-video-container { position: relative; width: 90vw !important; max-width: 600px; height: 45vh !important; border-radius: 24px !important; overflow: hidden; transform: none !important; opacity: 1 !important; flex-shrink: 0; margin: 0 auto; box-shadow: none; top: 0; left: 0; }
             #intro-video { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
-            #hero-content-container { position: relative; width: 100%; height: auto; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem 1rem; margin-top: 1rem; }
+            #hero-content-container { position: relative; width: 100%; height: auto; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem 1rem; margin-top: 1rem; overflow-x: hidden; }
             
             /* Dim slightly when scrolled */
-            body.scrolled #intro-video-container { opacity: 0.8 !important; transform: scale(0.97) !important; width: 90vw; height: 45vh; border-radius: 24px; top: 0; left: 0; margin: 0 auto; }
+            body.scrolled #intro-video-container { opacity: 0.8 !important; transform: scale(0.97) !important; width: 90vw !important; height: 45vh; border-radius: 24px; top: 0; left: 0; margin: 0 auto; }
 
             .hero-text { text-align: center; margin-left: 0; opacity: 1; transform: none; }
             .hero-main-heading { font-size: 3.5rem; letter-spacing: 2px; line-height: 1; }
             .hero-text h1 { font-size: 2.7rem; }
             .animated-text-container { font-size: 1.35rem; }
 
-            /* Loading text adjustment */
-            .loader-content h1 { font-size: 1.6rem; letter-spacing: 1px; }
-            .loader-content p { font-size: 0.8rem; }
+            /* Loading text adjustment for mobile */
+            .loader-content { transform: scale(0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto; max-width: 100%; overflow: hidden; padding: 0 10px; }
+            .loader-content h1 { font-size: 1.5rem; letter-spacing: 1px; width: 100%; max-width: 100%; white-space: normal; word-wrap: break-word; }
+            .loader-content p { font-size: 0.85rem; max-width: 100%; }
 
             /* Navigation adjustment */
             .navbar-brand img { height: 32px; }
 
             /* What we do text bolding */
-            .section-heading-massive { font-size: 14vw; letter-spacing: 3px; font-weight: 700; font-family: 'Coolvetica', sans-serif; }
+            .section-heading-massive { font-size: 14vw; letter-spacing: 3px; font-weight: 700; font-family: 'Coolvetica', sans-serif; word-wrap: break-word; }
             
             /* Mobile 2-Row What We Do Layout */
             #what-we-do-section .card-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1rem; height: auto; margin-top: 1rem; pointer-events: auto; }
-            #what-we-do-section .card-item { position: relative; left: auto !important; right: auto !important; top: auto !important; width: calc(50% - 1rem); max-width: 160px; height: auto; aspect-ratio: 1; border-radius: 20px; opacity: 0; transform: translateY(40px) !important; transition: transform 0.5s ease-out, opacity 0.5s ease-out; }
+            #what-we-do-section .card-item { position: relative; left: auto !important; right: auto !important; top: auto !important; width: calc(50% - 1rem); max-width: 160px; height: auto; aspect-ratio: 1; border-radius: 20px; transition: transform 0.6s ease-out, opacity 0.6s ease-out; }
             #what-we-do-section .card-item:hover { transform: scale(1.05) !important; }
             
+            /* Animate from outside for mobile */
+            #what-we-do-section .card-item.reveal-on-scroll:nth-child(1) { transform: translateX(-100px) rotate(-12deg) !important; opacity: 0 !important; }
+            #what-we-do-section .card-item.reveal-on-scroll:nth-child(2) { transform: translateX(100px) rotate(8deg) !important; opacity: 0 !important; }
+            #what-we-do-section .card-item.reveal-on-scroll:nth-child(3) { transform: translateY(100px) rotate(-4deg) !important; opacity: 0 !important; }
+            #what-we-do-section .card-item.reveal-on-scroll:nth-child(4) { transform: translateX(-100px) rotate(6deg) !important; opacity: 0 !important; }
+            #what-we-do-section .card-item.reveal-on-scroll:nth-child(5) { transform: translateX(100px) rotate(-5deg) !important; opacity: 0 !important; }
+
             /* Final states with tilts */
             #what-we-do-section .card-item.is-visible:nth-child(1) { transform: rotate(-6deg) !important; opacity: 1 !important; }
             #what-we-do-section .card-item.is-visible:nth-child(2) { transform: rotate(5deg) !important; opacity: 1 !important; }
@@ -290,8 +314,8 @@
             #what-we-do-section .card-item.is-visible:nth-child(5) { transform: rotate(-5deg) !important; opacity: 1 !important; }
 
             /* Fix overlaps for Video Editing */
-            #video-editing-section { margin-top: -60px; padding-top: 4rem; } /* Pushed down */
-            .section-heading-giga { font-family: 'Coolvetica', sans-serif; font-weight: 900; font-size: 15vw; margin-top: 30px; margin-bottom: 20px; letter-spacing: 2px; line-height: 1; color: #000; }
+            #video-editing-section { padding-top: 0 !important; margin-top: -60px !important; } 
+            .section-heading-giga { font-family: 'Coolvetica', sans-serif; font-weight: 900; font-size: 12.5vw; margin-top: 60px !important; margin-bottom: 25px; letter-spacing: 1px; line-height: 0.9; padding-top: 0; color: #000; word-wrap: break-word; hyphens: auto; transition: margin-top 0.3s ease; }
             
             /* Video Layout tweaks */
             .video-grid-overlap { margin-top: -30px; }
@@ -304,8 +328,8 @@
             #graphic-design-section .row .col-lg-6:nth-child(2) .col-12 .radius-large { height: 8.5rem !important; }
             
             /* Web Dev Fixes */
-            .web-dev-heading { font-family: 'Coolvetica', sans-serif; font-weight: 900; font-size: 13vw; margin-top: 20px; margin-bottom: 20px; letter-spacing: 2px; line-height: 1; position: relative; z-index: 10; }
-            #web-development-section { margin-top: 0; padding-top: 4rem; }
+            #web-development-section { padding-top: 0 !important; margin-top: 0 !important; }
+            .web-dev-heading { font-family: 'Coolvetica', sans-serif; font-weight: 900; font-size: 11.5vw; margin-top: 5px !important; margin-bottom: 25px; letter-spacing: 1px; line-height: 0.9; position: relative; z-index: 10; word-wrap: break-word; hyphens: auto; }
             
             /* Teams Mobile Fix */
             .team-card-container { flex-direction: column; gap: 27px; }
@@ -316,6 +340,11 @@
         }
 
         @media (max-width: 576px) {
+            .loader-content { transform: scale(0.75); }
+            .loader-content h1 { font-size: 1.25rem; }
+            .section-heading-giga { font-size: 13.5vw; margin-top: 70px !important; line-height: 0.9; }
+            .web-dev-heading { font-size: 12.5vw; margin-top: 15px !important; line-height: 0.9; }
+            
             .video-card-col .video-card { height: 270px !important; }
             #web-development-section .radius-large { height: 13.5rem !important; }
             #contact-section .contact-heading { font-size: 14vw; letter-spacing: 4.5px; word-wrap: break-word; line-height: 0.9; }
@@ -329,7 +358,7 @@
 <body class="bg-white">
 
     <div id="loading-screen">
-        <div class="loader-content text-center">
+        <div class="loader-content">
             <h1>Echelon Media</h1>
             <div class="loading-dots">
                 <div class="dot1"></div>
@@ -433,7 +462,7 @@
             <div class="container-xl px-3 px-lg-5">
                 <br class="d-none d-md-block"><br class="d-none d-md-block"><br class="d-none d-md-block">
                 <div class="text-center mb-9 rud">
-                    <h2 class="section-heading-giga slide-down" style="color: #000;">VIDEO EDITING</h2>
+                    <h2 class="section-heading-giga slide-down">VIDEO EDITING</h2>
                 </div>
                 <div class="row g-4 g-md-5 reveal-anim from-bottom video-grid-overlap">
                     <div class="col-12 col-sm-6 col-lg-3 video-card-col">
@@ -577,7 +606,6 @@
                 <div class="row">
                     <div class="col-12 reveal-anim from-bottom">
                         <div class="team-card-container">
-                            <!-- Team Member 1 -->
                             <div class="team-card-small">
                                 <div class="team-card-img-wrapper">
                                     <img src="assets/img/peaby.jpg" alt="Peaby" class="img-fit radius-large" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Peaby';">
@@ -599,7 +627,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Team Member 2 -->
                             <div class="team-card-small">
                                 <div class="team-card-img-wrapper">
                                     <img src="assets/img/rudra.jpg" alt="Rudrangshu" class="img-fit radius-large" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Rudrangshu';">
@@ -620,7 +647,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Team Member 3 -->
                             <div class="team-card-small">
                                 <div class="team-card-img-wrapper">
                                     <img src="assets/img/AKE.jpg" alt="Aryan" class="img-fit radius-large" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Aryan';">
@@ -653,9 +679,17 @@
                     <div class="col-lg-5 reveal-anim from-left">
                         <h2 class="contact-heading">GET IN<br>TOUCH</h2>
                         <p class="contact-subtext mt-4">Have a project in mind? Or just want to say hi? We'd love to hear from you. Fill out the form or email us.</p>
-                        <p class="mt-4 font-inter"><strong>Email:</strong> <a href="mailto:hello@echelonmedia.com" class="text-decoration-none text-black">hello@echelonmedia.com</a></p>
-                        <p class="mt-3 font-inter"><strong>Contact:</strong> <a href="tel:+911234567890" class="text-decoration-none text-black">+91 12345 67890</a></p>
-                        <p class="mt-3 font-inter"><strong>WhatsApp:</strong> <a href="https://wa.me/910987654321" target="_blank" class="text-decoration-none text-black">+91 09876 54321</a></p>
+                        <p class="mt-4 font-inter"><strong>Email:</strong> <a href="mailto:echelonmedia2025@gmail.com" class="text-decoration-none text-black">echelonmedia2025@gmail.com</a></p>
+                        <p class="mt-3 font-inter"><strong>Contact:</strong> 
+                            <a href="tel:+919707690598" class="text-decoration-none text-black">+91 97076 90598</a>, 
+                            <a href="tel:+918638324081" class="text-decoration-none text-black">+91 863 832 4081</a> AND 
+                            <a href="tel:+919365056857" class="text-decoration-none text-black">+91 93650 56857</a>
+                        </p>
+                        <p class="mt-3 font-inter"><strong>WhatsApp:</strong> 
+                            <a href="https://wa.me/919707690598" target="_blank" class="text-decoration-none text-black">+91 97076 90598</a>, 
+                            <a href="https://wa.me/918638324081" target="_blank" class="text-decoration-none text-black">+91 863 832 4081</a> AND 
+                            <a href="https://wa.me/919365056857" target="_blank" class="text-decoration-none text-black">+91 93650 56857</a>
+                        </p>
                     </div>
                     <div class="col-lg-7 reveal-anim from-right" style="transition-delay: 0.1s;">
                         <form id="contactForm">
@@ -715,9 +749,9 @@
             const mainElement = document.querySelector('main');
             
             // Adjust scroll start reference based on responsive layout
-            let mainScrollStart = window.innerWidth > 768 ? window.innerHeight : 0;
+            let mainScrollStart = window.innerHeight;
             window.addEventListener('resize', () => {
-                mainScrollStart = window.innerWidth > 768 ? window.innerHeight : 0;
+                mainScrollStart = window.innerHeight;
             });
 
             if (introVideo) introVideo.addEventListener('ended', () => introVideo.pause());
@@ -757,8 +791,8 @@
                         }
                         
                         if (heroSection) {
-                            // Completely hide hero section on desktop when scrolled past
-                            if (window.innerWidth > 768 && scrollPosition >= mainScrollStart - 5) {
+                            // Completely hide hero section when scrolled past
+                            if (scrollPosition >= mainScrollStart - 5) {
                                 heroSection.style.visibility = 'hidden';
                                 if (introVideo && !introVideo.paused) introVideo.pause();
                             } else {
@@ -768,7 +802,7 @@
                                 }
                             }
 
-                            // Desktop only: Parallax Hero Effect
+                            // Parallax Hero Effect
                             if (window.innerWidth > 768 && scrollPosition >= mainScrollStart) {
                                 heroSection.style.transform = `translate3d(0, -${scrollPosition - mainScrollStart}px, 0)`;
                             } else {
@@ -819,7 +853,7 @@
                     const name = document.getElementById('contactName').value;
                     const email = document.getElementById('contactEmail').value;
                     const bodyTxt = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${document.getElementById('contactMessage').value}`;
-                    window.location.href = `mailto:hello@echelonmedia.com?subject=${encodeURIComponent(`New Inquiry from ${name}`)}&body=${encodeURIComponent(bodyTxt.trim())}`;
+                    window.location.href = `mailto:echelonmedia2025@gmail.com?subject=${encodeURIComponent(`New Inquiry from ${name}`)}&body=${encodeURIComponent(bodyTxt.trim())}`;
                 });
             }
         });
