@@ -44,7 +44,7 @@
             overscroll-behavior-y: none;
         }
 
-        /* Utility Classes (Replaces inline styles) */
+        /* Utility Classes */
         .font-inter { font-family: 'Inter', sans-serif; font-weight: 400; }
         .font-inter-medium { font-family: 'Inter', sans-serif; font-weight: 500; }
         .font-gill { font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; }
@@ -95,7 +95,7 @@
         .navbar-toggler { border-color: rgba(33, 37, 41, 0.1); padding: 0.25rem 0.5rem; }
         .navbar-toggler-icon { --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2833, 37, 41, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
 
-        /* Hero Section */
+        /* Hero Section (Desktop Defaults) */
         .hero-section { position: fixed; top: 0; left: 0; z-index: 1; width: 100%; height: 100vh; height: 100dvh; display: flex; justify-content: center; align-items: center; overflow: hidden; will-change: transform, opacity; transform: translate3d(0, 0, 0); }
         #intro-video-container { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), width 0.8s cubic-bezier(0.25, 1, 0.5, 1), height 0.8s cubic-bezier(0.25, 1, 0.5, 1), left 0.8s cubic-bezier(0.25, 1, 0.5, 1), top 0.8s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease; z-index: 5; overflow: hidden; }
         #intro-video { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease, width 0.8s ease, height 0.8s ease; max-width: 100%; }
@@ -115,37 +115,41 @@
         body.scrolled #hero-content-container { justify-content: flex-end; }
         body.scrolled .hero-text { opacity: 1; transform: translateY(0); }
 
-        /* Hardware Accelerated GPU Rendering on Main for ultra-smooth scrolling */
+        /* Hardware Accelerated GPU Rendering */
         main { padding-top: 0; position: relative; z-index: 2; margin-top: 100vh; margin-top: 100dvh; background-color: #000000; transform: translateZ(0); backface-visibility: hidden; }
 
         /* Scroll Reveals */
-        .reveal-on-scroll { opacity: 0; transform: translateY(72px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .reveal-anim { opacity: 0; transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .reveal-on-scroll { opacity: 0; transform: translateY(72px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: transform, opacity; }
+        .reveal-anim { opacity: 0; transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: transform, opacity; }
         .reveal-anim.from-top { transform: translateY(-72px); }
         .reveal-anim.from-bottom { transform: translateY(72px); }
         .reveal-anim.from-left { transform: translateX(-90px); }
         .reveal-anim.from-right { transform: translateX(90px); }
         .reveal-anim.zoom-in { transform: scale(0.9); }
         .reveal-on-scroll.is-visible, .reveal-anim.is-visible { opacity: 1; transform: none; }
-        .slide-down { transform: translateY(-72px); transition: transform 0.9s ease-out; }
+        .slide-down { transform: translateY(-72px); transition: transform 0.9s ease-out; will-change: transform; }
         .slide-down.is-visible { transform: translateY(0); }
 
         /* Sections */
         #what-we-do-section { padding-top: 4.5rem; padding-bottom: 10.8rem; position: relative; z-index: 10; border-bottom-left-radius: 76px; border-bottom-right-radius: 76px; transform: translateZ(0); backface-visibility: hidden; }
         .section-heading-massive { font-family: 'Coolvetica Crammed', sans-serif; font-weight: 100; font-size: 180px; letter-spacing: 18px; }
-        #what-we-do-section .card-container { position: relative; width: 100%; max-width: 57.6rem; margin: -3.6rem auto 0; height: 270px; min-height: 225px; pointer-events: none; }
-        #what-we-do-section .card-item { background-color: #333; border-radius: 32px; position: absolute; width: 180px; height: 180px; opacity: 0; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease-out; }
+        #what-we-do-section .card-container { position: relative; width: 100%; max-width: 57.6rem; margin: -3.6rem auto 0; height: 350px; min-height: 225px; pointer-events: none; }
+        
+        /* Updated larger card items */
+        #what-we-do-section .card-item { background-color: #333; border-radius: 32px; position: absolute; width: 220px; height: 220px; opacity: 0; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease-out; will-change: transform, opacity; }
         #what-we-do-section .card-item img { border-radius: inherit; }
-        #card-1 { left: 10%; top: 20%; transform: rotate(-12deg); z-index: 5; transition-delay: 0.2s; }
-        #card-2 { left: 28%; top: 10%; transform: rotate(8deg); z-index: 10; transition-delay: 0.1s; }
+        #card-1 { left: 2%; top: 20%; transform: rotate(-12deg); z-index: 5; transition-delay: 0.2s; }
+        #card-2 { left: 25%; top: 5%; transform: rotate(8deg); z-index: 10; transition-delay: 0.1s; }
         #card-3 { left: 50%; top: 15%; transform: translateX(-50%) rotate(-5deg); z-index: 15; transition-delay: 0s; }
-        #card-4 { right: 28%; top: 10%; transform: rotate(12deg); z-index: 10; transition-delay: 0.1s; }
-        #card-5 { right: 10%; top: 20%; transform: rotate(-8deg); z-index: 5; transition-delay: 0.2s; }
-        #card-1.reveal-on-scroll { transform: translateX(-270px) rotate(-12deg); }
-        #card-2.reveal-on-scroll { transform: translateX(-270px) rotate(8deg); }
-        #card-3.reveal-on-scroll { transform: translateX(-50%) translateY(135px) rotate(-5deg); }
-        #card-4.reveal-on-scroll { transform: translateX(270px) rotate(12deg); }
-        #card-5.reveal-on-scroll { transform: translateX(270px) rotate(-8deg); }
+        #card-4 { right: 25%; top: 5%; transform: rotate(12deg); z-index: 10; transition-delay: 0.1s; }
+        #card-5 { right: 2%; top: 20%; transform: rotate(-8deg); z-index: 5; transition-delay: 0.2s; }
+        
+        #card-1.reveal-on-scroll { transform: translateX(-300px) rotate(-12deg); }
+        #card-2.reveal-on-scroll { transform: translateX(-300px) rotate(8deg); }
+        #card-3.reveal-on-scroll { transform: translateX(-50%) translateY(160px) rotate(-5deg); }
+        #card-4.reveal-on-scroll { transform: translateX(300px) rotate(12deg); }
+        #card-5.reveal-on-scroll { transform: translateX(300px) rotate(-8deg); }
+        
         #card-1.is-visible { transform: rotate(-12deg); opacity: 1; }
         #card-2.is-visible { transform: rotate(8deg); opacity: 1; }
         #card-3.is-visible { transform: translateX(-50%) rotate(-5deg); opacity: 1; }
@@ -218,7 +222,7 @@
         #imageModal .btn-close { position: absolute; top: 0.9rem; right: 0.9rem; z-index: 10; background-color: white; border-radius: 50%; opacity: 0.8; padding: 0.45em; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
         #imageModal .btn-close:hover { opacity: 1; }
 
-        /* Media Queries - Grouped for optimization */
+        /* Media Queries */
         @media (min-width: 768px) {
             .navbar-nav .nav-item:not(:last-child) { margin-right: 1.8rem; }
             .md-text-2xl { font-size: 1.35rem; line-height: 1.8rem; }
@@ -232,31 +236,78 @@
             .lg-text-8xl { font-size: 5.4rem; line-height: 1; }
             .lg-text-9xl { font-size: 7.2rem; line-height: 1; }
             .lg-text-200px { font-size: 180px; }
-            #what-we-do-section .card-item { width: 160px; height: 160px; }
-            #card-1 { left: 5%; top: 25%; }
-            #card-2 { left: 20%; top: 15%; }
-            #card-3 { left: 50%; top: 10%; transform: translateX(-50%) rotate(-5deg); }
-            #card-4 { right: 20%; top: 15%; }
-            #card-5 { right: 5%; top: 25%; }
+            /* Slightly smaller base sizes for desktop screens to preserve layout */
+            #what-we-do-section .card-item { width: 200px; height: 200px; }
+            #card-1 { left: 3%; top: 25%; }
+            #card-2 { left: 24%; top: 10%; }
+            #card-3 { left: 50%; top: 5%; transform: translateX(-50%) rotate(-5deg); }
+            #card-4 { right: 24%; top: 10%; }
+            #card-5 { right: 3%; top: 25%; }
         }
 
         @media (min-width: 1280px) {
             .xl-text-250px { font-size: 225px; }
         }
 
-        @media (max-width: 992px) {
-            #hero-content-container { flex-direction: column; justify-content: flex-end; padding-bottom: 15vh; }
-            .hero-text { text-align: center; margin-left: 0; }
-            .hero-main-heading { font-size: 3.15rem; letter-spacing: 3px; }
+        /* Natural Flow Mobile Layout */
+        @media (max-width: 768px) {
+            /* Fixes Hero Video stretching and simplifies document scrolling on mobile/tablet */
+            .hero-section { position: relative; height: auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 100px; }
+            main { margin-top: 0; }
+            
+            #intro-video-container { position: relative; width: 90vw !important; max-width: 600px; height: 45vh !important; border-radius: 24px !important; overflow: hidden; transform: none !important; opacity: 1 !important; flex-shrink: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 0 auto; top: 0; left: 0; }
+            #intro-video { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
+            #hero-content-container { position: relative; width: 100%; height: auto; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem 1rem; margin-top: 1rem; }
+            
+            /* Dim slightly when scrolled */
+            body.scrolled #intro-video-container { opacity: 0.8 !important; transform: scale(0.97) !important; width: 90vw; height: 45vh; border-radius: 24px; top: 0; left: 0; margin: 0 auto; }
+
+            .hero-text { text-align: center; margin-left: 0; opacity: 1; transform: none; }
+            .hero-main-heading { font-size: 3.5rem; letter-spacing: 2px; line-height: 1; }
             .hero-text h1 { font-size: 2.7rem; }
             .animated-text-container { font-size: 1.35rem; }
-            body.scrolled #intro-video-container { width: 80%; left: 50%; transform: translateX(-50%); opacity: 0.3; height: 60vh; top: 20vh; border-radius: 22px; overflow: hidden; }
-            body.scrolled #intro-video { width: 100%; height: 100%; object-fit: cover; }
-            body.scrolled #hero-content-container { justify-content: flex-end; }
-            .section-heading-massive { font-size: 81px; letter-spacing: 7px; }
-            .section-heading-giga { margin-top: 3.6rem; font-size: 180px; letter-spacing: 1px; }
-            .graphic-design-heading { font-size: 81px; }
-            .web-dev-heading { font-size: 135px; letter-spacing: 9px; margin-top: -54px; }
+
+            /* Loading text adjustment */
+            .loader-content h1 { font-size: 1.6rem; letter-spacing: 1px; }
+            .loader-content p { font-size: 0.8rem; }
+
+            /* Navigation adjustment */
+            .navbar-brand img { height: 32px; }
+
+            /* What we do text bolding */
+            .section-heading-massive { font-size: 14vw; letter-spacing: 3px; font-weight: 700; font-family: 'Coolvetica', sans-serif; }
+            
+            /* Mobile 2-Row What We Do Layout */
+            #what-we-do-section .card-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1rem; height: auto; margin-top: 1rem; pointer-events: auto; }
+            #what-we-do-section .card-item { position: relative; left: auto !important; right: auto !important; top: auto !important; width: calc(50% - 1rem); max-width: 160px; height: auto; aspect-ratio: 1; border-radius: 20px; opacity: 0; transform: translateY(40px) !important; transition: transform 0.5s ease-out, opacity 0.5s ease-out; }
+            #what-we-do-section .card-item:hover { transform: scale(1.05) !important; }
+            
+            /* Final states with tilts */
+            #what-we-do-section .card-item.is-visible:nth-child(1) { transform: rotate(-6deg) !important; opacity: 1 !important; }
+            #what-we-do-section .card-item.is-visible:nth-child(2) { transform: rotate(5deg) !important; opacity: 1 !important; }
+            #what-we-do-section .card-item.is-visible:nth-child(3) { transform: rotate(-4deg) !important; opacity: 1 !important; }
+            #what-we-do-section .card-item.is-visible:nth-child(4) { transform: rotate(6deg) !important; opacity: 1 !important; }
+            #what-we-do-section .card-item.is-visible:nth-child(5) { transform: rotate(-5deg) !important; opacity: 1 !important; }
+
+            /* Fix overlaps for Video Editing */
+            #video-editing-section { margin-top: -60px; padding-top: 4rem; } /* Pushed down */
+            .section-heading-giga { font-family: 'Coolvetica', sans-serif; font-weight: 900; font-size: 15vw; margin-top: 30px; margin-bottom: 20px; letter-spacing: 2px; line-height: 1; color: #000; }
+            
+            /* Video Layout tweaks */
+            .video-grid-overlap { margin-top: -30px; }
+            .video-card-col .video-card { height: 315px !important; }
+            .lg-translate-y-12 { transform: none !important; }
+            
+            /* Graphics Design Tweaks */
+            .graphic-design-heading { font-size: 15vw; }
+            #graphic-design-section .row .col-lg-6:nth-child(2) .col-6 .radius-large { height: 18rem !important; }
+            #graphic-design-section .row .col-lg-6:nth-child(2) .col-12 .radius-large { height: 8.5rem !important; }
+            
+            /* Web Dev Fixes */
+            .web-dev-heading { font-family: 'Coolvetica', sans-serif; font-weight: 900; font-size: 13vw; margin-top: 20px; margin-bottom: 20px; letter-spacing: 2px; line-height: 1; position: relative; z-index: 10; }
+            #web-development-section { margin-top: 0; padding-top: 4rem; }
+            
+            /* Teams Mobile Fix */
             .team-card-container { flex-direction: column; gap: 27px; }
             .team-card-container:hover .team-card-small, .team-card-container:hover .team-card-small:hover, .team-card-small { flex: 1 1 100%; min-width: 100%; min-height: 290px; }
             .team-card-small:hover .team-card-img-wrapper { opacity: 0.2; transform: scale(1.05); }
@@ -264,46 +315,13 @@
             .team-card-small:hover .team-card-info-hover { opacity: 1; visibility: visible; }
         }
 
-        @media (max-width: 768px) {
-            .navbar-brand img { height: 32px; }
-            .hero-section { height: 100vh; justify-content: center; align-items: center; flex-direction: column; text-align: left; }
-            #intro-video-container { position: relative; width: 100%; height: 70vh; overflow: hidden; display: flex; justify-content: center; align-items: center; top: 0; left: 0; transform: none; opacity: 1; }
-            #intro-video { width: 100%; height: 100%; object-fit: cover; border-radius: 0; display: block; max-width: 100%; overflow: hidden; }
-            #hero-content-container { position: relative; width: 100%; height: auto; justify-content: center; align-items: center; text-align: center; padding: 1rem 1rem; }
-            body.scrolled #intro-video-container { width: 100%; left: 0; transform: none; opacity: 1; height: 70vh; top: 0; border-radius: 0; overflow: hidden; }
-            .hero-main-heading, .hero-text h1 { font-size: 2.7rem; letter-spacing: 2px; }
-            .animated-text-container { font-size: 1.1rem; }
-            .section-heading-massive { font-size: 54px; letter-spacing: 3px; }
-            #what-we-do-section .card-container { min-height: auto; height: auto; display: flex; flex-direction: column; align-items: center; gap: 1.35rem; margin-top: -1.8rem; }
-            #what-we-do-section .card-item { width: 115px; height: 115px; border-radius: 22px; position: relative; left: auto !important; top: auto !important; right: auto !important; transform: none !important; opacity: 1 !important; transition: transform 0.3s ease-out; }
-            #what-we-do-section .card-item:hover { transform: scale(1.05) !important; }
-            .video-grid-overlap { margin-top: -72px; }
-            .video-card-col .video-card { height: 315px !important; }
-            .lg-translate-y-12 { transform: none !important; }
-            .graphic-design-heading { font-size: 63px; }
-            #graphic-design-section .row .col-lg-6:nth-child(2) .col-6 .radius-large { height: 18rem !important; }
-            #graphic-design-section .row .col-lg-6:nth-child(2) .col-12 .radius-large { height: 8.5rem !important; }
-            .web-dev-heading { font-size: 81px; letter-spacing: 4.5px; margin-top: -10px; }
-            .section-heading-giga { font-size: 90px; letter-spacing: 4.5px; margin-top: 1.8rem; }
-            .text-9xl { font-size: 5.4rem; }
-            .text-5xl { font-size: 2.25rem; }
-            #contact-section .contact-heading { font-size: 72px; }
-        }
-
-        @media (max-width: 640px) {
-            #what-we-do-section .card-item { width: 90px; height: 90px; border-radius: 18px; }
-            #what-we-do-section .card-container { min-height: auto; gap: 0.9rem; }
-        }
-
         @media (max-width: 576px) {
-            .video-grid-overlap { margin-top: -45px; }
             .video-card-col .video-card { height: 270px !important; }
-            .web-dev-heading { font-size: 14vw; letter-spacing: 3px; margin-top: -65px; word-wrap: break-word; line-height: 0.9; }
-            #web-development-section { margin-top: -29px; }
             #web-development-section .radius-large { height: 13.5rem !important; }
-            .section-heading-giga { font-size: 15vw; margin-top: 90px; letter-spacing: 1px; word-wrap: break-word; line-height: 0.9; }
             #contact-section .contact-heading { font-size: 14vw; letter-spacing: 4.5px; word-wrap: break-word; line-height: 0.9; }
             .brand-logo-wrapper { width: 7.2rem; height: 7.2rem; padding: 0.9rem; }
+            .text-9xl { font-size: 5.4rem; }
+            .text-5xl { font-size: 2.25rem; }
         }
     </style>
 </head>
@@ -385,19 +403,19 @@
                 <br>
                 <div class="card-container w-100 max-w-5xl mx-auto">
                     <div id="card-1" class="card-item radius-large reveal-on-scroll">
-                        <img src="assets/img/ad company logo.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 1" onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+1';">
+                        <img src="assets/img/ad company logo.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 1" onerror="this.onerror=null;this.src='https://placehold.co/300x300/333/FFF?text=Image+1';">
                     </div>
                     <div id="card-2" class="card-item radius-large reveal-on-scroll">
-                        <img src="assets/img/illustrative.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 2" onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+2';">
+                        <img src="assets/img/illustrative.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 2" onerror="this.onerror=null;this.src='https://placehold.co/300x300/333/FFF?text=Image+2';">
                     </div>
                     <div id="card-3" class="card-item radius-large reveal-on-scroll">
-                        <img src="assets/img/media agency logo.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 3" onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+3';">
+                        <img src="assets/img/media agency logo.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 3" onerror="this.onerror=null;this.src='https://placehold.co/300x300/333/FFF?text=Image+3';">
                     </div>
                     <div id="card-4" class="card-item radius-large reveal-on-scroll">
-                        <img src="assets/img/posters final 4-02.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 4" onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+4';">
+                        <img src="assets/img/posters final 4-02.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 4" onerror="this.onerror=null;this.src='https://placehold.co/300x300/333/FFF?text=Image+4';">
                     </div>
                     <div id="card-5" class="card-item radius-large reveal-on-scroll">
-                        <img src="assets/img/soc media creative.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 5" onerror="this.onerror=null;this.src='https://placehold.co/200x200/333/FFF?text=Image+5';">
+                        <img src="assets/img/soc media creative.png" class="img-fit" loading="lazy" decoding="async" alt="Card Image 5" onerror="this.onerror=null;this.src='https://placehold.co/300x300/333/FFF?text=Image+5';">
                     </div>
                 </div>
                 <div class="text-center reveal-anim from-top" style="margin-top: 8rem;">
@@ -413,7 +431,7 @@
 
         <section id="video-editing-section" class="bg-white pb-5 radius-section position-relative" style="padding-bottom: 8rem;">
             <div class="container-xl px-3 px-lg-5">
-                <br><br><br><br><br>
+                <br class="d-none d-md-block"><br class="d-none d-md-block"><br class="d-none d-md-block">
                 <div class="text-center mb-9 rud">
                     <h2 class="section-heading-giga slide-down" style="color: #000;">VIDEO EDITING</h2>
                 </div>
@@ -439,7 +457,7 @@
                         </div>
                     </div>
                 </div>
-                <br><br><br><br><br>
+                <br class="d-none d-md-block"><br class="d-none d-md-block">
                 <div class="d-flex justify-content-end mt-5">
                     <p class="font-inter fs-5 md-fs-4 max-w-3xl text-end lh-base text-secondary-emphasis reveal-anim from-right">
                         We craft stories that feel good to watch.
@@ -605,7 +623,7 @@
                             <!-- Team Member 3 -->
                             <div class="team-card-small">
                                 <div class="team-card-img-wrapper">
-                                    <img src="assets/img/AKE.jpg" alt="Aryan" class="img-fit radius-large" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Jane';">
+                                    <img src="assets/img/AKE.jpg" alt="Aryan" class="img-fit radius-large" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://placehold.co/400x500/333/FFF?text=Aryan';">
                                 </div>
                                 <div class="team-card-info-static">
                                     <h3>Aryan</h3><p>Senior Web Developer <br>Chief Technology Officer (CTO)</p>
@@ -695,9 +713,13 @@
             const heroSection = document.querySelector('.hero-section');
             const body = document.body;
             const mainElement = document.querySelector('main');
-            let mainScrollStart = mainElement.offsetTop;
+            
+            // Adjust scroll start reference based on responsive layout
+            let mainScrollStart = window.innerWidth > 768 ? window.innerHeight : 0;
+            window.addEventListener('resize', () => {
+                mainScrollStart = window.innerWidth > 768 ? window.innerHeight : 0;
+            });
 
-            window.addEventListener('resize', () => mainScrollStart = mainElement.offsetTop);
             if (introVideo) introVideo.addEventListener('ended', () => introVideo.pause());
 
             const removeLoader = () => {
@@ -735,20 +757,18 @@
                         }
                         
                         if (heroSection) {
-                            // Completely hide the hero section and pause video when fully covered
-                            // This stops any chance of it bleeding through corners or lagging behind the scroll content
-                            if (scrollPosition >= mainScrollStart - 5) {
+                            // Completely hide hero section on desktop when scrolled past
+                            if (window.innerWidth > 768 && scrollPosition >= mainScrollStart - 5) {
                                 heroSection.style.visibility = 'hidden';
                                 if (introVideo && !introVideo.paused) introVideo.pause();
                             } else {
                                 heroSection.style.visibility = 'visible';
-                                // Auto-resume intro video if scrolled back to the top
                                 if (introVideo && introVideo.paused && loadingScreen.classList.contains('hidden')) {
                                     introVideo.play().catch(()=>console.log("Autoplay blocked"));
                                 }
                             }
 
-                            // Only apply the transform parallax effect on Desktop while it's still visible
+                            // Desktop only: Parallax Hero Effect
                             if (window.innerWidth > 768 && scrollPosition >= mainScrollStart) {
                                 heroSection.style.transform = `translate3d(0, -${scrollPosition - mainScrollStart}px, 0)`;
                             } else {
@@ -776,11 +796,12 @@
                 }, 3000); 
             }
 
+            // Expanded rootMargin so animations trigger a bit earlier upon scrolling
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('is-visible');
                 });
-            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+            }, { threshold: 0.1, rootMargin: "0px 0px 100px 0px" });
 
             document.querySelectorAll('.reveal-on-scroll, .reveal-anim, .slide-down').forEach(el => observer.observe(el));
 
