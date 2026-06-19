@@ -1,0 +1,26 @@
+{
+  "name": "trialech",
+  "version": "1.0.0",
+  "description": "Echelon Media HQ - Creative Agency Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AryanAKE/echelonmediaHQ.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AryanAKE/echelonmediaHQ/issues"
+  },
+  "homepage": "https://github.com/AryanAKE/echelonmediaHQ#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sharp": "^0.35.2"
+  }
+}

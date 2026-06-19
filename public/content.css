@@ -1,0 +1,264 @@
+
+      /* Import custom font */
+      @import url("https://fonts.cdnfonts.com/css/coolvetica");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
+
+      body {
+        font-family: "Inter", sans-serif;
+        /* UPDATED: Light theme from original */
+        background-color: #ffffff;
+        color: #212529;
+      }
+
+      /* Custom display font from original site */
+      .font-display {
+        font-family: "Coolvetica", sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+      }
+
+      /* Custom accent color (UPDATED to match original) */
+      .text-accent {
+        color: #1a4a43;
+      }
+      .bg-accent {
+        background-color: #1a4a43;
+      }
+      .border-accent {
+        border-color: #1a4a43;
+      }
+
+      /* --- Loading Screen (UPDATED for light theme) --- */
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* UPDATED */
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        opacity: 1;
+        visibility: visible;
+      }
+      #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loading-dots div {
+        width: 12px;
+        height: 12px;
+        /* UPDATED */
+        background-color: #6c757d;
+        border-radius: 50%;
+        margin: 0 5px;
+        animation: bounce 1.4s infinite ease-in-out both;
+      }
+      .loading-dots .dot1 {
+        animation-delay: -0.32s;
+      }
+      .loading-dots .dot2 {
+        animation-delay: -0.16s;
+      }
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+
+      /* --- Scroll Reveal Animations --- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* --- Tab Navigation --- */
+      .tab-button {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+      .tab-button::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        /* UPDATED */
+        background-color: #1a4a43;
+        transition: width 0.3s ease;
+      }
+      .tab-button.active {
+        /* UPDATED */
+        color: #1a4a43;
+      }
+      .tab-button.active::after {
+        width: 100%;
+      }
+
+      /* --- Card Hover Effects --- */
+      .project-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .project-card:hover {
+        transform: translateY(-8px);
+        /* UPDATED: Softer shadow for light theme */
+        box-shadow: 0 10px 30px rgba(26, 74, 67, 0.1);
+      }
+
+      .video-card .thumbnail-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .video-card:hover .thumbnail-overlay {
+        opacity: 1;
+      }
+      .video-card:hover img {
+        transform: scale(1.05);
+      }
+      .video-card img {
+        transition: transform 0.3s ease;
+      }
+
+      /* --- Modal Styling --- */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+        animation: fadeIn 0.3s ease;
+      }
+      .modal-content {
+        position: relative;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        max-width: 900px;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: zoomIn 0.3s ease;
+        /* UPDATED: Add a background for the content itself */
+        background: #111;
+        border-radius: 8px;
+      }
+      .modal-video-content {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        height: 0;
+        overflow: hidden;
+        /* UPDATED */
+        background: #000;
+        border-radius: 8px;
+      }
+      /* UPDATED: This style now applies to the <video> tag */
+      .modal-video-content video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px; /* Added for consistency */
+      }
+      .modal-close {
+        position: absolute;
+        top: -35px;
+        right: -5px;
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+      .modal-close:hover {
+        /* UPDATED */
+        color: #1a4a43;
+      }
+
+      /* Graphics Modal Nav */
+      .modal-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 1rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        z-index: 1010;
+      }
+      .modal-nav:hover {
+        /* UPDATED */
+        background: rgba(26, 74, 67, 0.8);
+      }
+      #graphics-prev {
+        left: 1rem;
+      }
+      #graphics-next {
+        right: 1rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes zoomIn {
+        from {
+          transform: translateY(-50%) scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(-50%) scale(1);
+          opacity: 1;
+        }
+      }
+    
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    fill: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.custom-cursor svg {
+    width: 20px;
+    height: 20px;
+}
+body, a, button, input, textarea, select, .team-card-small, img[data-bs-toggle='modal'], .explore-btn, .social-link, .footer-social-link { 
+    cursor: none !important; 
+}
